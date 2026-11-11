@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: #0A0A0C;
+    color: #E3E1D9;
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  }
+
+  body {
+    background-color: #0A0A0C;
+    color: #E3E1D9;
+    overflow-x: hidden;
+    selection-background-color: #C2272D;
+    selection-color: #E3E1D9;
+  }
+
+  ::selection {
+    background-color: rgba(194, 39, 45, 0.85);
+    color: #E3E1D9;
+  }
+}
+
+/* Scanlines & Noir Film Grain Overlay */
+.noir-scanlines {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0) 50%,
+    rgba(0, 0, 0, 0.32) 50%,
+    rgba(0, 0, 0, 0.32)
+  );
+  background-size: 100% 4px;
+}
+
+.noir-grain {
+  background-image: radial-gradient(rgba(227, 225, 217, 0.045) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Custom Scrollbar for Storyboard Timeline & Dossier */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0A0A0C;
+  border-left: 1px solid #2A2B30;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2A2B30;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #C2272D;
+}
+
+/* Forensic Stamp Effect */
+.forensic-stamp {
+  border: 2px solid #C2272D;
+  color: #C2272D;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  mask-image: radial-gradient(circle at 30% 40%, black 75%, rgba(0, 0, 0, 0.55) 100%);
+}

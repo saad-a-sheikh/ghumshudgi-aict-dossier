@@ -1,0 +1,1041 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GHUMSHUDGI (گمشدگی) — Classified Case Dossier | AICT Open Ended Lab-1 (DUET)</title>
+    <!-- Google Fonts: Cinzel, Syne, Space Grotesk, Space Mono, Noto Nastaliq Urdu -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Noto+Nastaliq+Urdu:wght@500;700&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Tailwind CSS CDN configured with Karachi Noir Design System -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'bg-primary': '#0A0A0C',
+              'surface-card': '#121316',
+              'border-subtle': '#2A2B30',
+              'accent-alert': '#C2272D',
+              'text-main': '#E3E1D9',
+              'text-muted': '#9CA3AF',
+            },
+            fontFamily: {
+              display: ['"Cinzel"', '"Syne"', 'serif'],
+              syne: ['"Syne"', 'sans-serif'],
+              sans: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
+              mono: ['"Space Mono"', 'monospace'],
+              urdu: ['"Noto Nastaliq Urdu"', 'serif'],
+            },
+            backgroundImage: {
+              'dossier-grid':
+                'linear-gradient(to right, rgba(42, 43, 48, 0.22) 1px, transparent 1px), linear-gradient(to bottom, rgba(42, 43, 48, 0.22) 1px, transparent 1px)',
+              'crimson-glow':
+                'radial-gradient(circle at 50% 0%, rgba(194, 39, 45, 0.16), transparent 65%)',
+            },
+            boxShadow: {
+              crimson: '0 0 25px -5px rgba(194, 39, 45, 0.35)',
+              dossier: '0 20px 50px rgba(0, 0, 0, 0.85)',
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      html {
+        scroll-behavior: smooth;
+        background-color: #0A0A0C;
+        color: #E3E1D9;
+        font-family: 'Space Grotesk', system-ui, sans-serif;
+      }
+      body {
+        background-color: #0A0A0C;
+        color: #E3E1D9;
+        overflow-x: hidden;
+      }
+      ::selection {
+        background-color: rgba(194, 39, 45, 0.85);
+        color: #E3E1D9;
+      }
+      .noir-scanlines {
+        background: linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0),
+          rgba(255, 255, 255, 0) 50%,
+          rgba(0, 0, 0, 0.32) 50%,
+          rgba(0, 0, 0, 0.32)
+        );
+        background-size: 100% 4px;
+      }
+      .noir-grain {
+        background-image: radial-gradient(rgba(227, 225, 217, 0.045) 1px, transparent 0);
+        background-size: 24px 24px;
+      }
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #0A0A0C;
+        border-left: 1px solid #2A2B30;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #2A2B30;
+        border-radius: 2px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #C2272D;
+      }
+      .forensic-stamp {
+        border: 2px solid #C2272D;
+        color: #C2272D;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+      }
+    </style>
+    <!-- React 18 + ReactDOM + Babel for Zero-Build Instant Execution -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body class="bg-[#0A0A0C] text-[#E3E1D9] antialiased">
+    <div id="root"></div>
+
+    <script type="text/babel">
+      const { useState, useEffect, useRef, useCallback } = React;
+
+      const CIPHER_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&/[]*=-_';
+
+      const DecodeText = ({ text, trigger = false, className = '', speed = 22 }) => {
+        const [displayText, setDisplayText] = useState(text);
+
+        const runDecode = useCallback(() => {
+          let iteration = 0;
+          const interval = window.setInterval(() => {
+            setDisplayText(
+              text
+                .split('')
+                .map((char, index) => {
+                  if (char === ' ') return ' ';
+                  if (index < iteration) return text[index];
+                  return CIPHER_CHARS[Math.floor(Math.random() * CIPHER_CHARS.length)];
+                })
+                .join('')
+            );
+            if (iteration >= text.length) window.clearInterval(interval);
+            iteration += 0.5;
+          }, speed);
+          return () => window.clearInterval(interval);
+        }, [text, speed]);
+
+        useEffect(() => {
+          if (trigger) return runDecode();
+          setDisplayText(text);
+        }, [trigger, text, runDecode]);
+
+        return (
+          <span onMouseEnter={runDecode} className={className}>
+            {displayText}
+          </span>
+        );
+      };
+
+      const EVIDENCE_DOCUMENTS = [
+        {
+          id: 'cnic-lease',
+          exhibitCode: 'EXHIBIT A-01 // NADRA & TENANCY RECORD',
+          stampText: 'FORGED LEASE PROXY',
+          title: "Saman's Confiscated CNIC & Fraudulent Tenancy Deed",
+          subtitle: 'National Identity Card Confiscated Under "Employment Verification"',
+          dateLogged: 'DAY 02 // 14:20 PKT',
+          location: 'Clifton / Defence Sector Residence, Karachi',
+          classification: 'CRITICAL ENTRAPMENT ARTIFACT',
+          summary:
+            "Upon Saman's arrival from Nawabshah, Farah Begum confiscated her original CNIC claiming standard household staff vetting. Behind closed doors, Farah used the identity card to register the property's residential lease directly in Saman's name—pre-manufacturing legal liability for the kidnapping safehouse.",
+          forensicNotes: [
+            'Original CNIC Bearing District Code: Shaheed Benazirabad (Nawabshah)',
+            'Biometric verification bypassed via forged thumbprint affidavit & broker bribe',
+            'Property lease lists Saman as Primary Tenant of the locked nursery premises',
+          ],
+          metadata: {
+            'HOLDER NAME': 'SAMAN D/O ALLAH BUX',
+            'ORIGIN DISTRICT': 'NAWABSHAH (SINDH)',
+            'MISUSE VECTOR': 'SAFEHOUSE TENANCY REGISTRATION',
+            'CUSTODY STATUS': 'SEIZED BY FARAH BEGUM',
+          },
+        },
+        {
+          id: 'newspaper-clipping',
+          exhibitCode: 'EXHIBIT B-04 // PRESS ARCHIVE CLIPPING',
+          stampText: 'IDENTITY MATCH: 99.4%',
+          title: 'Marked Newspaper Clipping: Missing Toddler "Ali Khan"',
+          subtitle: 'Discovered Hidden Inside First-Aid Drawer During Nursery Fall',
+          dateLogged: 'SCENE 17 // 22:15 PKT',
+          location: 'Master Bedroom Medical Cabinet, Karachi',
+          classification: 'SUPPRESSED KIDNAPPING PROOF',
+          summary:
+            'While searching for antiseptic to treat a minor fall suffered by toddler "Yusuf", Saman uncovers a folded, yellowing Urdu/English crime desk clipping encircled in red ink. The photograph and birthmark description prove beyond doubt that "Yusuf" is actually Ali Khan—abducted months prior.',
+          forensicNotes: [
+            'Hand-drawn crimson ink ring around child photograph matching "Yusuf"',
+            'Original FIR filed for abducted toddler Ali Khan — unsolved for 14 months',
+            'Explains double biometric deadbolts and strict ban on courtyard/window access',
+          ],
+          metadata: {
+            'ALIAS IN HOUSE': 'YUSUF',
+            'TRUE IDENTITY': 'ALI KHAN (MISSING CHILD)',
+            'DISCOVERY TRIGGER': 'FIRST-AID CABINET SEARCH',
+            'EVIDENCE FATE': 'DESTROYED BY CORRUPT OFFICERS',
+          },
+        },
+        {
+          id: 'precinct-log',
+          exhibitCode: 'EXHIBIT C-09 // PRECINCT DISPATCH LOG',
+          stampText: 'TAMPERED // PAYOFF',
+          title: 'Corrupt Precinct Dispatch & Fabricated Charge Sheet',
+          subtitle: 'Cash Bribe Transaction & False Implication with Accomplice "Tariq"',
+          dateLogged: 'SCENE 20–21 // 03:40 PKT',
+          location: 'Karachi District South Police Lockup',
+          classification: 'INSTITUTIONAL COVER-UP',
+          summary:
+            'When Saman turns back from the unlocked front door to rescue the child, Farah corners her and summons pre-briefed police officers. In exchange for a thick envelope of cash, officers confiscate the newspaper clipping, erase Farah from the record, and book Saman alongside a fabricated external accomplice named "Tariq".',
+          forensicNotes: [
+            'Unrecorded cash handover executed in main drawing room prior to cuffing',
+            'Saman charged as prime abductor via the house lease registered on her CNIC',
+            'Televised press conference staged at dawn; Farah seated applauding in back row',
+          ],
+          metadata: {
+            'ACCUSED #1': 'SAMAN (CARETAKER / FRAMED)',
+            'ACCUSED #2': 'TARIQ (ALLEGED ACCOMPLICE)',
+            'TRUE PERPETRATOR': 'FARAH BEGUM (CLEARED / IMMUNE)',
+            'PRESS STATUS': 'CASE CLOSED — MEDIA BRIEFING AIRED',
+          },
+        },
+      ];
+
+      const CHARACTER_PROFILES = [
+        {
+          id: 'saman',
+          code: 'SUBJ-01 // TARGET & CARETAKER',
+          name: 'Saman',
+          urduName: 'سمن',
+          role: 'Protagonist • Live-In Caretaker',
+          origin: 'Nawabshah (Interior Sindh) → Karachi',
+          status: 'WRONGFULLY IMPRISONED // FRAMED',
+          statusTone: 'danger',
+          summary:
+            'An innocent, devoted village daughter from Nawabshah who journeys alone to Karachi to earn money for her ailing father’s life-saving medication. Despite discovering the deadly truth and reaching an unlocked exit, her conscience forces her to turn back for the child—sealing her tragic fate.',
+          psychologicalProfile:
+            'Driven by filial sacrifice and maternal empathy. Possesses moral courage that ultimately collides with an unforgiving urban hierarchy of wealth and bought law enforcement.',
+          keyEvidence: 'Confiscated CNIC used to bind her legally to the crime scene.',
+          attributes: [
+            { label: 'MOTIVATION', value: "Baba's Cardiac & Renal Medication" },
+            { label: 'PERSONAL ARTIFACT', value: 'Basic Nokia Keypad Phone' },
+            { label: 'FATAL CHOICE', value: 'Turned back at Scene 18 to save Yusuf' },
+            { label: 'FINAL LOCATION', value: 'Karachi Police Lockup (Solitary Cell)' },
+          ],
+        },
+        {
+          id: 'farah-begum',
+          code: 'SUBJ-02 // PRIMARY ANTAGONIST',
+          name: 'Farah Begum',
+          urduName: 'فرح بیگم',
+          role: 'Primary Antagonist • The Architect',
+          origin: 'Elite Enclave, Karachi',
+          status: 'AT LARGE // INSTITUTIONALLY SHIELDED',
+          statusTone: 'warning',
+          summary:
+            'A wealthy, calculating woman who weaponizes class privilege, biometric security systems, and corrupt police patronage. Before Saman even steps into the nursery, Farah engineers a foolproof paper trail so the village girl will take the fall if the kidnapping is ever exposed.',
+          psychologicalProfile:
+            'Cold, composed, and deeply manipulative. Masks obsessive possession beneath aristocratic poise, applauding from the back row of the police press conference before driving down the open highway.',
+          keyEvidence: 'Double biometric deadbolts & cash payoff envelope handed to precinct officers.',
+          attributes: [
+            { label: 'SECURITY APPARATUS', value: 'Biometric Deadbolts & Exterior Latches' },
+            { label: 'LEGAL SHIELD', value: 'Proxy Lease under Saman’s CNIC' },
+            { label: 'POLITICAL LEVERAGE', value: 'Direct Precinct Bribery & Media Staging' },
+            { label: 'FINAL LOCATION', value: 'Karachi Coastal Highway — Unrestrained Freedom' },
+          ],
+        },
+        {
+          id: 'yusuf-ali-khan',
+          code: 'SUBJ-03 // THE MISSING CHILD',
+          name: 'Yusuf / Ali Khan',
+          urduName: 'یوسف / علی خان',
+          role: 'The Victim • Abducted Toddler',
+          origin: 'Abducted in Karachi • Held in Biometric Nursery',
+          status: 'IDENTITY ERASED // CAPTIVE',
+          statusTone: 'victim',
+          summary:
+            'A gentle toddler raised inside a gilded cage under the fabricated identity "Yusuf". He forms a genuine emotional bond with Saman, unaware that the woman he calls mother abducted him and that the newspaper clipping in the medicine cabinet bears his real name: Ali Khan.',
+          psychologicalProfile:
+            'Conditioned to indoor isolation behind keypad-locked nursery doors. His minor fall becomes the narrative catalyst that exposes the hidden crime.',
+          keyEvidence: 'Red-circled newspaper clipping matching his birthmark and age progression.',
+          attributes: [
+            { label: 'ASSIGNED ALIAS', value: 'Yusuf' },
+            { label: 'BIRTH IDENTITY', value: 'Ali Khan (Reported Missing)' },
+            { label: 'CONTAINMENT ZONE', value: 'Biometric-Locked Upper Nursery' },
+            { label: 'NARRATIVE CATALYST', value: 'Minor fall requiring first-aid cabinet access' },
+          ],
+        },
+        {
+          id: 'baba-and-system',
+          code: 'SUBJ-04 // CATALYSTS & COMPLICIT STATE',
+          name: 'Baba, Tariq & Corrupt Precinct',
+          urduName: 'بابا اور کرپٹ نظام',
+          role: 'Supporting Catalysts • Tragedy & Institutional Betrayal',
+          origin: 'Nawabshah Homestead & Karachi Precinct',
+          status: 'SYSTEMIC COLLUSION // UNRESOLVED',
+          statusTone: 'neutral',
+          summary:
+            'In Nawabshah, Saman’s frail father (Baba) waits for the medicine money that forced her migration. In Karachi, corrupt officers pocket Farah’s cash bribe, destroy the clipping, and manufacture a syndicate narrative linking Saman to an alleged accomplice named "Tariq" for television cameras.',
+          psychologicalProfile:
+            'Represents the dual vise crushing the powerless: rural medical poverty at one end, and predatory institutional corruption at the other.',
+          keyEvidence: 'Televised press conference praising the "syndicate bust" while Baba awaits medicine.',
+          attributes: [
+            { label: 'CATALYST (NAWABSHAH)', value: 'Baba’s Critical Prescription Dependency' },
+            { label: 'FABRICATED ACCOMPLICE', value: 'Tariq (Co-Accused in Police Press Briefing)' },
+            { label: 'LAW ENFORCEMENT ROLE', value: 'Evidence Suppression & Cash Payoff' },
+            { label: 'THEMATIC CORE', value: 'Impunity of Wealth vs. Vulnerability of the Poor' },
+          ],
+        },
+      ];
+
+      const STORYBOARD_SCENES = [
+        {
+          sceneNumber: 'SCENE 03',
+          title: 'A Daughter’s Farewell',
+          act: 'ACT I',
+          location: 'Nawabshah Village Courtyard, Interior Sindh',
+          timecode: '00:42 — 01:18',
+          tensionLevel: 45,
+          logline:
+            'Saman packs a worn cloth bag in golden-hour dust, hiding the gravity of their financial ruin from her bedridden father Baba while promising to send money for his life-saving medication.',
+          visualDirection:
+            'Warm desaturated amber tones contrasting with medicine blisters on a charpoy; tight close-up on Saman’s trembling reassurance.',
+          soundCue: 'Distant village wind, wheezing breath, muted strings.',
+          forensicFlag: 'CATALYST: ECONOMIC COERCION',
+        },
+        {
+          sceneNumber: 'SCENE 04',
+          title: 'Arrival at Sohrab Goth',
+          act: 'ACT I',
+          location: 'Sohrab Goth Bus Terminal, Karachi',
+          timecode: '01:19 — 01:54',
+          tensionLevel: 62,
+          logline:
+            'Stepping off the intercity coach into sensory overload, Saman clutches her basic Nokia keypad phone amidst sodium-vapor smog, honking buses, and towering urban hostility.',
+          visualDirection:
+            'Handheld anamorphic framing, harsh neon and sodium streetlights reflecting off exhaust haze; Saman isolated in center frame.',
+          soundCue: 'Chaotic Karachi traffic horns, diesel rumble, Nokia keypad beep.',
+          forensicFlag: 'TRANSIT LOG: ENTRY INTO KARACHI',
+        },
+        {
+          sceneNumber: 'SCENE 07',
+          title: 'The Biometric Nursery',
+          act: 'ACT II',
+          location: 'Farah Begum’s Residence — Upper Corridor',
+          timecode: '02:35 — 03:20',
+          tensionLevel: 76,
+          logline:
+            'After surrendering her CNIC to Farah for "verification", Saman bonds with toddler Yusuf—only to notice double biometric deadbolts, exterior steel latches, and strict orders never to open the curtains.',
+          visualDirection:
+            'Cold fluorescent corridor geometry, macro shot of glowing red biometric scanner and metallic deadbolt sliding shut from the outside.',
+          soundCue: 'Electronic lock chime, hollow footsteps, low sub-bass pulse.',
+          forensicFlag: 'RED FLAG: EXTERIOR BIOMETRIC CONTAINMENT',
+        },
+        {
+          sceneNumber: 'SCENE 17',
+          title: 'The Marked Clipping',
+          act: 'ACT III',
+          location: 'Master Medical Drawer / Nursery Bathroom',
+          timecode: '05:10 — 05:58',
+          tensionLevel: 94,
+          logline:
+            'Rushing to treat Yusuf’s minor scrape, Saman pulls open a locked bottom drawer for bandages and uncovers old newspaper clippings with a crimson circle around missing toddler "Ali Khan".',
+          visualDirection:
+            'Extreme close-up alternating between the yellowing newsprint photograph of Ali Khan and Yusuf’s matching features under flickering tungsten light.',
+          soundCue: 'Sharp violin stinger, heartbeat percussion, rustling paper.',
+          forensicFlag: 'EVIDENCE UNCOVERED: ALI KHAN = YUSUF',
+        },
+        {
+          sceneNumber: 'SCENE 18',
+          title: 'The Moral Choice',
+          act: 'ACT III',
+          location: 'Main Foyer Threshold & Stairwell',
+          timecode: '05:59 — 06:45',
+          tensionLevel: 98,
+          logline:
+            'Clutching the clipping, Saman reaches the unlatched front gate with a clear chance to escape into the street—but hears Yusuf’s cry upstairs and turns back into the lion’s den to save him.',
+          visualDirection:
+            'Split lighting at the threshold: cold street freedom outside vs. blood-red shadow stretching down the interior staircase.',
+          soundCue: 'Door latch click, silence drop, rising suspense drone.',
+          forensicFlag: 'POINT OF NO RETURN: SACRIFICIAL RE-ENTRY',
+        },
+        {
+          sceneNumber: 'SCENE 21',
+          title: 'The Press Conference',
+          act: 'ACT IV',
+          location: 'Karachi Police Headquarters Media Hall',
+          timecode: '07:30 — 08:12',
+          tensionLevel: 88,
+          logline:
+            'Having pocketed Farah’s cash bribe and destroyed the clipping, police parade a handcuffed Saman alongside alleged accomplice "Tariq" before flashing cameras—while Farah sits clapping in the back row.',
+          visualDirection:
+            'Strobe camera flashes, broadcast lower-thirds banner in Urdu, slow rack-focus from Saman’s bowed head to Farah’s composed applause.',
+          soundCue: 'Camera shutters, microphone feedback, stern official Urdu briefing.',
+          forensicFlag: 'COVER-UP COMPLETE: STATE-SANCTIONED FRAME',
+        },
+        {
+          sceneNumber: 'SCENE 22–23',
+          title: 'Solitary Cell vs. Highway Escape',
+          act: 'ACT IV',
+          location: 'Karachi Lockup // Coastal Highway',
+          timecode: '08:13 — 09:05',
+          tensionLevel: 100,
+          logline:
+            'Cross-cut finale: Farah drives effortlessly down a wide Karachi highway into total freedom, while Saman sobs on the concrete floor of a freezing lockup cell, whispering prayers for her father’s missed medication.',
+          visualDirection:
+            'Parallel montage contrasting smooth gimbal highway motion inside a luxury sedan with static iron bars casting prison shadows across Saman’s face.',
+          soundCue: 'Muffled luxury cabin silence vs. echoing cell sobs & distant azan/sirens.',
+          forensicFlag: 'CASE CLOSED // JUSTICE COMPROMISED',
+        },
+      ];
+
+      const TECH_PIPELINE = [
+        {
+          id: 'video-diffusion',
+          stepCode: 'STAGE 01 // VISUAL MOTION SYNTHESIS',
+          title: 'Video Generation & Diffusion',
+          tools: ['Google Flow', 'CapCut AI'],
+          category: 'Cinematic Latent Diffusion & Temporal Editing',
+          description:
+            'Engineered 23 atmospheric noir scenes using Google Flow for high-dynamic-range cinematic motion generation and CapCut AI for frame interpolation, color grading, and pace-locked thriller cuts.',
+          engineeringSpecs: [
+            '23 sequential narrative shots rendered in 16:9 widescreen aspect ratio',
+            'Karachi Noir LUT grading: deep charcoal shadows (#0A0A0C) with crimson halation',
+            'Temporal motion control for handheld bus terminal chaos vs. static cell isolation',
+          ],
+          metricValue: '23 SCENES // 1080P HD',
+        },
+        {
+          id: 'prompt-architecture',
+          stepCode: 'STAGE 02 // NARRATIVE & SHOT COMPILER',
+          title: 'Prompting & Script Architecture',
+          tools: ['Google Gemini'],
+          category: 'Multi-Scene Continuity & Cinematography Scripting',
+          description:
+            'Leveraged Gemini to architect the screenplay, Urdu dramatic dialogue, focal-length specifications, lighting schemas, and structured JSON/text prompt chains maintaining psychological tension across all four acts.',
+          engineeringSpecs: [
+            'Structured prompt grammar defining lens focal length (35mm anamorphic / 85mm portrait)',
+            'Character token anchoring for Saman, Farah Begum, and Yusuf across lighting shifts',
+            'Dramatic pacing matrix mapping scene tension from Nawabshah departure to Karachi lockup',
+          ],
+          metricValue: '140+ STRUCTURED PROMPTS',
+        },
+        {
+          id: 'spatial-alignment',
+          stepCode: 'STAGE 03 // GEOMETRIC & IDENTITY LOCK',
+          title: 'Spatial Alignment & Continuity',
+          tools: ['Reference-Based Camera Reconstruction', 'Keyframe Conditioning'],
+          category: 'Indoor Architectural & Character Consistency',
+          description:
+            'Implemented reference-based camera perspective reconstruction to preserve spatial geometry across Farah’s mansion corridors, the biometric nursery door, and consistent wardrobe/facial identity across reverse angles.',
+          engineeringSpecs: [
+            'Anchor keyframe conditioning for recurring architectural sets (nursery & foyer)',
+            'Consistent prop tracking: Nokia keypad phone, confiscated CNIC, and red-circled clipping',
+            '180-degree shutter & eyeline match validation during the Scene 18–20 confrontation',
+          ],
+          metricValue: 'MULTI-ANGLE LOCKED',
+        },
+        {
+          id: 'audio-engineering',
+          stepCode: 'STAGE 04 // ACOUSTIC & VOCAL DESIGN',
+          title: 'Audio & Vocal Engineering',
+          tools: ['Google AI Studio', 'Adobe Audio Suite', 'CapCut AI'],
+          category: 'Multilingual Voice Synthesis & Noir Soundscape',
+          description:
+            'Synthesized emotionally nuanced Urdu voice-over performances via Google AI Studio, mastered dialogue clarity in Adobe, and layered suspense sub-bass drones, biometric lock chimes, and Karachi street ambiences in CapCut AI.',
+          engineeringSpecs: [
+            'Expressive Urdu dialogue & inner monologue generation with regional emotional inflection',
+            'Spectral noise cleanup, room-tone convolution (lockup echo vs. sedan cabin)',
+            'Dynamic low-frequency thriller drone synchronized to heartbeat tempo in Act III',
+          ],
+          metricValue: 'VO + FOLEY + NOIR SCORE',
+        },
+      ];
+
+      const TEAM_ROSTER = [
+        {
+          name: 'Aiman Alkasiri',
+          rollNo: '26F-CS-158',
+          role: 'Team Lead • Narrative & AI Direction',
+          isLead: true,
+          specialization: 'Executive Direction, Gemini Prompt Architecture & Final Assembly',
+          clearance: 'LEVEL-05 // LEAD INVESTIGATOR',
+        },
+        {
+          name: 'Maryam Sheikh',
+          rollNo: '26F-CS-119',
+          role: 'Visual Continuity & Diffusion Specialist',
+          specialization: 'Scene Generation (Google Flow), Character Consistency & Storyboarding',
+          clearance: 'LEVEL-04 // VISUAL FORENSICS',
+        },
+        {
+          name: 'Soha Majid',
+          rollNo: '26F-CS-126',
+          role: 'Screenplay & Art Direction',
+          specialization: 'Script Development, Dossier Curation & Spatial Scene Alignment',
+          clearance: 'LEVEL-04 // NARRATIVE ANALYST',
+        },
+        {
+          name: 'Umer Kamran',
+          rollNo: '26F-CS-150',
+          role: 'AI Video Pipeline & Post-Production',
+          specialization: 'Motion Synthesis, CapCut AI Pacing & Cinematic Color Grading',
+          clearance: 'LEVEL-04 // MOTION ENGINEER',
+        },
+        {
+          name: 'Muhammad Abu Bakar',
+          rollNo: '26F-CS-151',
+          role: 'Audio, Vocal Engineering & Sound Design',
+          specialization: 'Google AI Studio Voice Synthesis, Adobe Mastering & Noir Scoring',
+          clearance: 'LEVEL-04 // ACOUSTIC ENGINEER',
+        },
+        {
+          name: 'Saad Ahmed',
+          rollNo: '26F-CS-147',
+          role: 'Systems Architecture & Technical Showcase',
+          specialization: 'Interactive Dossier Portal, Prompt Pipeline & Technical Documentation',
+          clearance: 'LEVEL-04 // SYSTEMS ARCHITECT',
+        },
+      ];
+
+      const NAV_ITEMS = [
+        { label: '[01. DOSSIER]', href: '#dossier' },
+        { label: '[02. CHARACTERS]', href: '#characters' },
+        { label: '[03. SCENES]', href: '#scenes' },
+        { label: '[04. PIPELINE]', href: '#pipeline' },
+        { label: '[05. CREDITS]', href: '#credits' },
+      ];
+
+      function App() {
+        const [isFilmModalOpen, setIsFilmModalOpen] = useState(false);
+        const [selectedDoc, setSelectedDoc] = useState(EVIDENCE_DOCUMENTS[0]);
+        const [activeProfile, setActiveProfile] = useState(CHARACTER_PROFILES[0]);
+        const [selectedAct, setSelectedAct] = useState('ALL SCENES');
+        const [activeScene, setActiveScene] = useState(STORYBOARD_SCENES[0]);
+        const [modalMode, setModalMode] = useState('reel');
+        const [videoSrc, setVideoSrc] = useState('');
+        const [uploadedName, setUploadedName] = useState('');
+        const [reelSlide, setReelSlide] = useState(0);
+        const scrollRef = useRef(null);
+        const fileInputRef = useRef(null);
+
+        useEffect(() => {
+          const onKey = (e) => {
+            if (e.key === 'Escape') setIsFilmModalOpen(false);
+          };
+          window.addEventListener('keydown', onKey);
+          return () => window.removeEventListener('keydown', onKey);
+        }, []);
+
+        const filteredScenes =
+          selectedAct === 'ALL SCENES'
+            ? STORYBOARD_SCENES
+            : STORYBOARD_SCENES.filter((s) => s.act === selectedAct);
+
+        const handleFileSelect = (e) => {
+          const file = e.target.files?.[0];
+          if (!file) return;
+          setVideoSrc(URL.createObjectURL(file));
+          setUploadedName(file.name);
+          setModalMode('video');
+        };
+
+        return (
+          <div className="min-h-screen bg-[#0A0A0C] text-[#E3E1D9] relative">
+            <div className="pointer-events-none fixed inset-0 z-30 noir-scanlines opacity-25" />
+            <div className="pointer-events-none fixed inset-0 z-30 noir-grain opacity-60" />
+
+            {/* 1. NAVBAR */}
+            <header className="fixed top-0 left-0 right-0 z-40 bg-[#0A0A0C]/90 backdrop-blur-md border-b border-[#2A2B30] py-3.5">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+                <a href="#top" className="font-mono text-xs sm:text-sm font-bold tracking-widest text-[#E3E1D9]">
+                  GHUMSHUDGI <span className="text-[#C2272D]">//</span> AICT-LAB-01
+                </a>
+
+                <nav className="hidden lg:flex items-center gap-2">
+                  {NAV_ITEMS.map((item) => (
+                    <a
+                      key={item.href}
+                      href={item.href}
+                      className="px-3 py-1.5 font-mono text-xs tracking-wider rounded border border-transparent text-[#9CA3AF] hover:text-[#E3E1D9] hover:border-red-600/60 hover:bg-[#121316] transition-all"
+                    >
+                      <DecodeText text={item.label} />
+                    </a>
+                  ))}
+                </nav>
+
+                <div className="flex items-center gap-3">
+                  <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded bg-[#121316] border border-[#C2272D]/40 font-mono text-[11px] tracking-widest">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C2272D] opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-[#C2272D]"></span>
+                    </span>
+                    <span className="text-[#9CA3AF]">STATUS:</span>
+                    <span className="text-[#C2272D] font-bold">RESTRICTED ACCESS</span>
+                  </div>
+                </div>
+              </div>
+            </header>
+
+            {/* 2. HERO STAGE */}
+            <section id="top" className="relative min-h-screen pt-28 pb-20 flex items-center border-b border-[#2A2B30] overflow-hidden">
+              <div className="pointer-events-none absolute inset-0 bg-dossier-grid bg-[size:48px_48px] opacity-35" />
+              <div className="pointer-events-none absolute inset-0 bg-crimson-glow" />
+
+              <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+                <div className="flex flex-wrap items-center gap-2.5 mb-6 font-mono text-[11px]">
+                  <span className="px-2.5 py-1 rounded bg-[#121316] border border-[#2A2B30] text-[#E3E1D9]">
+                    [CASE FILE: 26F-CS-A3]
+                  </span>
+                  <span className="px-2.5 py-1 rounded bg-[#C2272D]/15 border border-[#C2272D]/50 text-[#C2272D] font-bold">
+                    [EVIDENCE CLASSIFIED]
+                  </span>
+                  <span className="px-2.5 py-1 rounded bg-[#121316] border border-[#2A2B30] text-[#9CA3AF]">
+                    [STATUS: COMPROMISED]
+                  </span>
+                </div>
+
+                <div className="mb-5">
+                  <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#121316] border border-[#2A2B30] font-mono text-xs sm:text-sm text-[#E3E1D9]">
+                    <span className="w-2 h-2 rounded-full bg-[#C2272D]" />
+                    Dawood University of Engineering &amp; Technology • BSCS Section A3
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                  <div className="lg:col-span-7 space-y-6">
+                    <div className="flex flex-wrap items-baseline gap-x-5 gap-y-2">
+                      <h1 className="font-display text-5xl sm:text-7xl xl:text-8xl font-black tracking-tight text-[#E3E1D9]">
+                        <DecodeText text="GHUMSHUDGI" speed={35} />
+                      </h1>
+                      <span dir="rtl" lang="ur" className="font-urdu text-4xl sm:text-6xl text-[#C2272D] font-bold">
+                        (گمشدگی)
+                      </span>
+                    </div>
+
+                    <p className="text-lg sm:text-2xl text-[#E3E1D9]/90 font-light italic">
+                      An AI-Generated Psychological Crime Thriller on Power, Betrayal, and Sacrifice.
+                    </p>
+
+                    <p className="text-sm sm:text-base text-[#9CA3AF] leading-relaxed max-w-2xl">
+                      From a village departure in <strong className="text-[#E3E1D9]">Nawabshah</strong> to a biometric-locked nursery in <strong className="text-[#E3E1D9]">Karachi</strong>—inspect the unauthorized investigation file detailing how live-in caretaker <strong className="text-[#E3E1D9]">Saman</strong> uncovered the true identity of kidnapped toddler <strong className="text-[#E3E1D9]">Ali Khan (Yusuf)</strong>, turned back from freedom to save him, and was framed by <strong className="text-[#E3E1D9]">Farah Begum</strong> and a corrupt police precinct.
+                    </p>
+
+                    <div className="pt-2 flex flex-col sm:flex-row gap-4">
+                      <button
+                        onClick={() => setIsFilmModalOpen(true)}
+                        className="px-7 py-4 rounded bg-[#C2272D] hover:bg-[#a91f24] text-white font-mono text-xs sm:text-sm font-bold tracking-widest shadow-crimson transition-all"
+                      >
+                        ▶ [ WATCH SHORT FILM ]
+                      </button>
+                      <a
+                        href="#dossier"
+                        className="px-7 py-4 rounded bg-[#121316] hover:bg-[#191B20] text-[#E3E1D9] border border-[#2A2B30] hover:border-red-600/60 font-mono text-xs sm:text-sm font-bold tracking-widest text-center transition-all"
+                      >
+                        [ INSPECT CASE FILE ]
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="lg:col-span-5">
+                    <div
+                      onClick={() => setIsFilmModalOpen(true)}
+                      className="cursor-pointer rounded-lg bg-[#121316] border border-[#2A2B30] hover:border-red-600/60 p-6 shadow-dossier transition-all"
+                    >
+                      <div className="flex items-center justify-between border-b border-[#2A2B30] pb-3 mb-4 font-mono text-xs">
+                        <span className="text-[#9CA3AF]">EVIDENCE REEL // 16:9 SCREENING</span>
+                        <span className="forensic-stamp px-2 py-0.5 text-[10px] font-bold">RESTRICTED</span>
+                      </div>
+                      <div className="aspect-video rounded bg-[#0A0A0C] border border-[#2A2B30] flex flex-col items-center justify-center p-4 text-center mb-4">
+                        <div className="w-14 h-14 rounded-full bg-[#C2272D] text-white flex items-center justify-center text-xl mb-3 shadow-crimson">
+                          ▶
+                        </div>
+                        <div className="font-display text-lg font-bold text-[#E3E1D9]">GHUMSHUDGI (گمشدگی)</div>
+                        <div className="font-mono text-[11px] text-[#9CA3AF] mt-1">
+                          CLICK TO LAUNCH 16:9 VIDEO MODAL
+                        </div>
+                      </div>
+                      <div className="font-mono text-xs text-[#9CA3AF] flex justify-between">
+                        <span>SUPERVISOR: SIR IMRAN ALVI</span>
+                        <span className="text-[#C2272D]">23 SCENES // 4 ACTS</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* 3. SYNOPSIS & EVIDENCE PIN-BOARD */}
+            <section id="dossier" className="py-24 border-b border-[#2A2B30]">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="pb-10 border-b border-[#2A2B30]">
+                  <div className="font-mono text-xs text-[#C2272D] tracking-widest mb-2">
+                    [01. DOSSIER // FORENSIC CASE FILE &amp; SYNOPSIS]
+                  </div>
+                  <h2 className="font-display text-3xl sm:text-5xl font-bold text-[#E3E1D9]">
+                    <DecodeText text="THE ANATOMY OF A FRAME-UP" />
+                  </h2>
+                </div>
+
+                <div className="mt-12 grid grid-cols-1 lg:grid-cols-12 gap-10">
+                  <div className="lg:col-span-6 rounded-lg bg-[#121316] border border-[#2A2B30] hover:border-red-600/60 p-6 sm:p-8 space-y-5">
+                    <div className="font-mono text-xs text-[#C2272D] border-b border-[#2A2B30] pb-3 font-bold">
+                      INVESTIGATIVE NARRATIVE // NAWABSHAH TO KARACHI
+                    </div>
+                    <p className="text-sm sm:text-base text-[#E3E1D9]/90 leading-relaxed">
+                      <strong>Saman</strong>, an innocent village girl from <strong>Nawabshah</strong>, travels to <strong>Karachi</strong> to work as a live-in caretaker for a wealthy woman named <strong>Farah Begum</strong> to pay for her sick father <strong>Baba’s</strong> life-saving medication.
+                    </p>
+                    <p className="text-sm sm:text-base text-[#9CA3AF] leading-relaxed">
+                      Farah confiscates Saman’s <strong>CNIC</strong> under the guise of employment verification, secretly registering the house lease in Saman’s name. Saman bonds deeply with Farah’s toddler, <strong>Yusuf</strong>, but gradually uncovers double biometric deadbolts and locked nursery doors.
+                    </p>
+                    <p className="text-sm sm:text-base text-[#9CA3AF] leading-relaxed">
+                      While treating a minor fall, Saman discovers old newspaper clippings showing Yusuf is actually <strong>Ali Khan</strong>, a kidnapped child. Though she reaches the front door with a chance to flee, Saman turns back to save the toddler.
+                    </p>
+                    <p className="text-sm sm:text-base text-[#E3E1D9] leading-relaxed border-l-2 border-[#C2272D] pl-4 bg-[#0A0A0C] p-3 rounded-r">
+                      Farah corners her and triggers a corrupt police trap; officers accept a cash payoff, confiscate the evidence, and frame Saman alongside an alleged accomplice named <strong>Tariq</strong>. The story ends with a televised police press conference praising the arrest, Farah driving away completely free, and Saman sobbing in a cold Karachi lockup worrying about her father’s medication.
+                    </p>
+                  </div>
+
+                  <div className="lg:col-span-6 space-y-4">
+                    <div className="font-mono text-xs text-[#E3E1D9] mb-2">
+                      THE EVIDENCE PIN-BOARD // CLICK STAMPED DOCUMENT TO INSPECT
+                    </div>
+                    {EVIDENCE_DOCUMENTS.map((doc, idx) => (
+                      <div
+                        key={doc.id}
+                        onClick={() => setSelectedDoc(doc)}
+                        className={`cursor-pointer rounded-lg p-5 border transition-all ${
+                          selectedDoc.id === doc.id
+                            ? 'bg-[#121316] border-[#C2272D] shadow-crimson'
+                            : 'bg-[#121316]/75 border-[#2A2B30] hover:border-red-600/60'
+                        }`}
+                      >
+                        <div className="flex items-start justify-between gap-3 mb-2">
+                          <div>
+                            <div className="font-mono text-[11px] text-[#9CA3AF]">
+                              STAMPED DOCUMENT 0{idx + 1} • {doc.exhibitCode}
+                            </div>
+                            <h3 className="font-display text-lg font-bold text-[#E3E1D9]">
+                              <DecodeText text={doc.title} />
+                            </h3>
+                          </div>
+                          <span className="forensic-stamp px-2 py-0.5 font-mono text-[10px] font-bold">
+                            {doc.stampText}
+                          </span>
+                        </div>
+                        <p className="text-xs sm:text-sm text-[#9CA3AF]">{doc.summary}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* 4. CHARACTER DOSSIER */}
+            <section id="characters" className="py-24 border-b border-[#2A2B30]">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="pb-10 border-b border-[#2A2B30]">
+                  <div className="font-mono text-xs text-[#C2272D] tracking-widest mb-2">
+                    [02. CHARACTERS // SUBJECT DOSSIERS]
+                  </div>
+                  <h2 className="font-display text-3xl sm:text-5xl font-bold text-[#E3E1D9]">
+                    <DecodeText text="PERSONS OF INTEREST" />
+                  </h2>
+                </div>
+
+                <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {CHARACTER_PROFILES.map((char) => (
+                    <div
+                      key={char.id}
+                      onClick={() => setActiveProfile(char)}
+                      className="rounded-lg bg-[#121316] border border-[#2A2B30] hover:border-red-600/60 transition-all p-6 cursor-pointer"
+                    >
+                      <div className="flex items-center justify-between border-b border-[#2A2B30] pb-3 mb-4 font-mono text-xs">
+                        <span className="text-[#9CA3AF]">{char.code}</span>
+                        <span className="text-[#C2272D] font-bold">{char.status}</span>
+                      </div>
+                      <div className="flex items-baseline justify-between mb-2">
+                        <div>
+                          <h3 className="font-display text-2xl font-bold text-[#E3E1D9]">
+                            <DecodeText text={char.name} />
+                          </h3>
+                          <p className="font-mono text-xs text-[#C2272D]">{char.role}</p>
+                        </div>
+                        <span dir="rtl" lang="ur" className="font-urdu text-2xl text-[#E3E1D9]/80">
+                          {char.urduName}
+                        </span>
+                      </div>
+                      <p className="text-sm text-[#9CA3AF] mb-4">{char.summary}</p>
+                      <div className="grid grid-cols-2 gap-2 font-mono text-xs">
+                        {char.attributes.map((a) => (
+                          <div key={a.label} className="p-2 rounded bg-[#0A0A0C] border border-[#2A2B30]">
+                            <span className="text-[10px] text-[#9CA3AF] block">{a.label}</span>
+                            <span className="text-[#E3E1D9]">{a.value}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* 5. STORYBOARD TIMELINE */}
+            <section id="scenes" className="py-24 border-b border-[#2A2B30]">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex flex-wrap items-end justify-between gap-4 pb-8 border-b border-[#2A2B30]">
+                  <div>
+                    <div className="font-mono text-xs text-[#C2272D] tracking-widest mb-2">
+                      [03. SCENES // STORYBOARD PROGRESSION ACROSS 23 SCENES]
+                    </div>
+                    <h2 className="font-display text-3xl sm:text-5xl font-bold text-[#E3E1D9]">
+                      <DecodeText text="CHRONOLOGY OF ENTRAPMENT" />
+                    </h2>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5 bg-[#121316] p-1.5 rounded border border-[#2A2B30]">
+                    {['ALL SCENES', 'ACT I', 'ACT II', 'ACT III', 'ACT IV'].map((act) => (
+                      <button
+                        key={act}
+                        onClick={() => setSelectedAct(act)}
+                        className={`px-3 py-1.5 rounded font-mono text-xs ${
+                          selectedAct === act ? 'bg-[#C2272D] text-white font-bold' : 'text-[#9CA3AF]'
+                        }`}
+                      >
+                        {act}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div ref={scrollRef} className="mt-10 flex gap-5 overflow-x-auto pb-6">
+                  {filteredScenes.map((scene) => (
+                    <div
+                      key={scene.sceneNumber}
+                      onClick={() => setActiveScene(scene)}
+                      className="shrink-0 w-[330px] rounded-lg bg-[#121316] border border-[#2A2B30] hover:border-red-600/60 p-5 cursor-pointer"
+                    >
+                      <div className="flex justify-between font-mono text-xs mb-3 pb-2 border-b border-[#2A2B30]">
+                        <span className="text-[#C2272D] font-bold">{scene.sceneNumber}</span>
+                        <span className="text-[#9CA3AF]">{scene.act} • {scene.timecode}</span>
+                      </div>
+                      <h3 className="font-display text-xl font-bold text-[#E3E1D9] mb-1">
+                        <DecodeText text={scene.title} />
+                      </h3>
+                      <div className="font-mono text-[11px] text-[#9CA3AF] mb-3">{scene.location}</div>
+                      <p className="text-xs sm:text-sm text-[#E3E1D9]/85 leading-relaxed mb-4">
+                        {scene.logline}
+                      </p>
+                      <div className="font-mono text-[10px] text-[#C2272D]">{scene.forensicFlag}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* 6. TECH PIPELINE */}
+            <section id="pipeline" className="py-24 border-b border-[#2A2B30]">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="pb-10 border-b border-[#2A2B30]">
+                  <div className="font-mono text-xs text-[#C2272D] tracking-widest mb-2">
+                    [04. PIPELINE // AI GENERATIVE ENGINEERING]
+                  </div>
+                  <h2 className="font-display text-3xl sm:text-5xl font-bold text-[#E3E1D9]">
+                    <DecodeText text="AI GENERATIVE ENGINEERING PIPELINE" />
+                  </h2>
+                </div>
+
+                <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {TECH_PIPELINE.map((m) => (
+                    <div
+                      key={m.id}
+                      className="rounded-lg bg-[#121316] border border-[#2A2B30] hover:border-red-600/60 p-6"
+                    >
+                      <div className="flex justify-between font-mono text-xs border-b border-[#2A2B30] pb-3 mb-4">
+                        <span className="text-[#E3E1D9] font-bold">{m.stepCode}</span>
+                        <span className="text-[#C2272D]">{m.metricValue}</span>
+                      </div>
+                      <h3 className="font-display text-2xl font-bold text-[#E3E1D9] mb-2">
+                        <DecodeText text={m.title} />
+                      </h3>
+                      <div className="flex flex-wrap gap-2 mb-3">
+                        {m.tools.map((t) => (
+                          <span
+                            key={t}
+                            className="px-2.5 py-0.5 rounded bg-[#C2272D]/15 border border-[#C2272D]/40 font-mono text-xs text-[#E3E1D9]"
+                          >
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+                      <p className="text-sm text-[#9CA3AF] leading-relaxed">{m.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* 7. PRODUCTION TEAM & CREDITS */}
+            <section id="credits" className="py-24">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="pb-10 border-b border-[#2A2B30]">
+                  <div className="font-mono text-xs text-[#C2272D] tracking-widest mb-2">
+                    [05. CREDITS // PRODUCTION TEAM &amp; ACADEMIC SUPERVISION]
+                  </div>
+                  <h2 className="font-display text-3xl sm:text-5xl font-bold text-[#E3E1D9]">
+                    <DecodeText text="INVESTIGATIVE TASK FORCE" />
+                  </h2>
+                </div>
+
+                <div className="mt-10 rounded-lg bg-[#121316] border border-[#C2272D]/50 p-6 sm:p-8 mb-10">
+                  <div className="font-mono text-xs text-[#C2272D] mb-1">SUPERVISOR</div>
+                  <h3 className="font-display text-2xl sm:text-4xl font-bold text-[#E3E1D9] mb-2">
+                    Sir Imran Alvi
+                  </h3>
+                  <p className="font-mono text-xs sm:text-sm text-[#9CA3AF]">
+                    Course: AICT Open Ended Lab-1 • BSCS Batch 2026 (Section A3) • Dawood University of Engineering &amp; Technology (DUET), Karachi
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                  {TEAM_ROSTER.map((member) => (
+                    <div
+                      key={member.rollNo}
+                      className={`rounded-lg bg-[#121316] border p-6 transition-all ${
+                        member.isLead
+                          ? 'border-[#C2272D] shadow-crimson'
+                          : 'border-[#2A2B30] hover:border-red-600/60'
+                      }`}
+                    >
+                      <div className="flex justify-between font-mono text-xs border-b border-[#2A2B30] pb-3 mb-4">
+                        <span className="text-[#9CA3AF]">{member.clearance}</span>
+                        <span className="text-[#E3E1D9] font-bold">{member.rollNo}</span>
+                      </div>
+                      <div className="flex items-center justify-between mb-1">
+                        <h3 className="font-display text-xl font-bold text-[#E3E1D9]">
+                          <DecodeText text={member.name} />
+                        </h3>
+                        {member.isLead && (
+                          <span className="px-2 py-0.5 rounded bg-[#C2272D] text-white font-mono text-[10px] font-bold">
+                            TEAM LEAD
+                          </span>
+                        )}
+                      </div>
+                      <p className="font-mono text-xs text-[#C2272D] mb-2">{member.role}</p>
+                      <p className="text-xs text-[#9CA3AF]">{member.specialization}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* VIDEO MODAL */}
+            {isFilmModalOpen && (
+              <div
+                onClick={() => setIsFilmModalOpen(false)}
+                className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md p-4"
+              >
+                <div
+                  onClick={(e) => e.stopPropagation()}
+                  className="w-full max-w-4xl rounded-lg bg-[#121316] border border-[#2A2B30] overflow-hidden shadow-dossier"
+                >
+                  <div className="flex items-center justify-between px-5 py-3 bg-[#0A0A0C] border-b border-[#2A2B30] font-mono text-xs">
+                    <span>GHUMSHUDGI (گمشدگی) // 16:9 SCREENING ROOM</span>
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => fileInputRef.current?.click()}
+                        className="px-2.5 py-1 rounded bg-[#121316] border border-[#2A2B30] hover:border-red-600/60"
+                      >
+                        LOAD .MP4 FILE
+                      </button>
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept="video/*"
+                        onChange={handleFileSelect}
+                        className="hidden"
+                      />
+                      <button
+                        onClick={() => setIsFilmModalOpen(false)}
+                        className="px-2.5 py-1 rounded bg-[#C2272D] text-white font-bold"
+                      >
+                        [ESC / CLOSE]
+                      </button>
+                    </div>
+                  </div>
+                  <div className="aspect-video bg-[#0A0A0C] flex flex-col justify-between p-6">
+                    {modalMode === 'video' && videoSrc ? (
+                      <video src={videoSrc} controls autoPlay className="w-full h-full object-contain" />
+                    ) : (
+                      <>
+                        <div className="flex justify-between font-mono text-xs text-[#9CA3AF]">
+                          <span className="text-[#C2272D] font-bold">
+                            {STORYBOARD_SCENES[reelSlide].sceneNumber} // {STORYBOARD_SCENES[reelSlide].act}
+                          </span>
+                          <span>TC: {STORYBOARD_SCENES[reelSlide].timecode}</span>
+                        </div>
+                        <div className="my-auto text-center max-w-2xl mx-auto space-y-3">
+                          <h4 className="font-display text-3xl font-bold text-[#E3E1D9]">
+                            {STORYBOARD_SCENES[reelSlide].title}
+                          </h4>
+                          <p className="text-sm sm:text-base text-[#E3E1D9]/90">
+                            &ldquo;{STORYBOARD_SCENES[reelSlide].logline}&rdquo;
+                          </p>
+                          <p className="font-mono text-xs text-[#C2272D]">
+                            {STORYBOARD_SCENES[reelSlide].forensicFlag}
+                          </p>
+                        </div>
+                        <div className="flex justify-between items-center font-mono text-xs border-t border-[#2A2B30] pt-3">
+                          <button
+                            onClick={() =>
+                              setReelSlide(
+                                (reelSlide - 1 + STORYBOARD_SCENES.length) % STORYBOARD_SCENES.length
+                              )
+                            }
+                            className="px-3 py-1 rounded bg-[#121316] border border-[#2A2B30]"
+                          >
+                            ← PREV SCENE
+                          </button>
+                          <button
+                            onClick={() => fileInputRef.current?.click()}
+                            className="px-3 py-1 rounded bg-[#C2272D] text-white font-bold"
+                          >
+                            SELECT LOCAL .MP4 VIDEO
+                          </button>
+                          <button
+                            onClick={() => setReelSlide((reelSlide + 1) % STORYBOARD_SCENES.length)}
+                            className="px-3 py-1 rounded bg-[#121316] border border-[#2A2B30]"
+                          >
+                            NEXT SCENE →
+                          </button>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        );
+      }
+
+      ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    </script>
+  </body>
+</html>
