@@ -76,7 +76,7 @@ export const Hero: React.FC<HeroProps> = ({ onWatchFilm }) => {
             <div className="space-y-3">
               <div className="flex flex-wrap items-baseline gap-x-5 gap-y-2">
                 <h1 className="font-display text-5xl sm:text-7xl xl:text-8xl font-black tracking-tight text-[#E3E1D9] leading-none">
-                  <DecodeText text="GHUMSHUDGI" speed={35} />
+                  <DecodeText text="GHUMSHUDGI" trigger={true} speed={35} />
                 </h1>
                 <span
                   dir="rtl"

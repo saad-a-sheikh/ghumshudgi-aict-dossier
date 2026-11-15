@@ -10,10 +10,8 @@ import {
   MapPin,
 } from 'lucide-react';
 import { CHARACTER_PROFILES, CharacterProfile } from '../data/dossierData';
-import { DecodeText } from './DecodeText';
 
 export const CharacterGrid: React.FC = () => {
-  const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [activeProfile, setActiveProfile] = useState<CharacterProfile>(CHARACTER_PROFILES[0]);
 
   const getCharacterIcon = (id: string) => {
@@ -44,18 +42,17 @@ export const CharacterGrid: React.FC = () => {
               <span className="text-[#9CA3AF]">4 PRIMARY SUBJECT FILES</span>
             </div>
             <h2 className="font-display text-3xl sm:text-5xl font-bold text-[#E3E1D9] tracking-tight">
-              <DecodeText text="PERSONS OF INTEREST" />
+              PERSONS OF INTEREST
             </h2>
           </div>
           <p className="font-mono text-xs text-[#9CA3AF] max-w-md">
-            Hover over any subject card to trigger forensic cipher decoding or click to inspect psychological &amp; evidentiary profiles.
+            Click on any subject card to inspect psychological &amp; evidentiary profiles.
           </p>
         </div>
 
         {/* 4-Card Character Dossier Grid */}
         <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
           {CHARACTER_PROFILES.map((char, index) => {
-            const isHovered = hoveredId === char.id;
             const isSelected = activeProfile.id === char.id;
 
             return (
@@ -65,8 +62,6 @@ export const CharacterGrid: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.45, delay: index * 0.08 }}
-                onMouseEnter={() => setHoveredId(char.id)}
-                onMouseLeave={() => setHoveredId(null)}
                 onClick={() => setActiveProfile(char)}
                 className={`group relative rounded-lg bg-[#121316] border transition-all duration-300 p-6 sm:p-7 cursor-pointer flex flex-col justify-between shadow-dossier ${
                   isSelected
@@ -79,7 +74,7 @@ export const CharacterGrid: React.FC = () => {
                   <div className="flex flex-wrap items-center justify-between gap-2 pb-4 mb-4 border-b border-[#2A2B30]">
                     <div className="flex items-center gap-2 font-mono text-xs text-[#9CA3AF]">
                       {getCharacterIcon(char.id)}
-                      <DecodeText text={char.code} trigger={isHovered} />
+                      <span>{char.code}</span>
                     </div>
 
                     <span
@@ -101,7 +96,7 @@ export const CharacterGrid: React.FC = () => {
                   <div className="flex items-baseline justify-between gap-4 mb-2">
                     <div>
                       <h3 className="font-display text-2xl sm:text-3xl font-bold text-[#E3E1D9] group-hover:text-white transition-colors">
-                        <DecodeText text={char.name} trigger={isHovered} speed={28} />
+                        {char.name}
                       </h3>
                       <p className="font-mono text-xs text-[#C2272D] mt-0.5">{char.role}</p>
                     </div>

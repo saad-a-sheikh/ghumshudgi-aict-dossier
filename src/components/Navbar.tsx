@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { ShieldAlert, Menu, X, Play, FileWarning } from 'lucide-react';
-import { DecodeText } from './DecodeText';
 
 interface NavbarProps {
   onOpenFilm: () => void;
@@ -67,7 +66,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenFilm }) => {
                   : 'border-transparent text-[#9CA3AF] hover:text-[#E3E1D9] hover:border-red-600/60 hover:bg-[#121316]'
               }`}
             >
-              <DecodeText text={item.label} />
+              {item.label}
             </a>
           ))}
         </nav>

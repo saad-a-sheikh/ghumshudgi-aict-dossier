@@ -56,12 +56,16 @@ export interface PipelineModule {
 }
 
 export interface TeamMember {
+  id: string;
+  badgeNumber: string;
   name: string;
   rollNo: string;
   role: string;
   isLead?: boolean;
   specialization: string;
   clearance: string;
+  departmentUnit: string;
+  contributions: string[];
 }
 
 export const EVIDENCE_DOCUMENTS: EvidenceDocument[] = [
@@ -393,46 +397,102 @@ export const TECH_PIPELINE: PipelineModule[] = [
 
 export const TEAM_ROSTER: TeamMember[] = [
   {
+    id: 'aiman-alkasiri',
+    badgeNumber: 'OPERATIVE // 01',
     name: 'Aiman Alkasiri',
     rollNo: '26F-CS-158',
-    role: 'Team Lead • Narrative & AI Direction',
+    role: 'Team Lead & Production Supervisor',
     isLead: true,
-    specialization: 'Executive Direction, Gemini Prompt Architecture & Final Assembly',
-    clearance: 'LEVEL-05 // LEAD INVESTIGATOR',
+    specialization: 'Team supervision, AI video direction, storyboarding, prompt engineering & post-production.',
+    clearance: 'LEVEL-05 // LEAD SUPERVISOR',
+    departmentUnit: 'DIRECTION & EXECUTIVE PRODUCTION UNIT',
+    contributions: [
+      'Team Lead & production supervision',
+      'Video generation and direction',
+      'Storyboarding and scene planning',
+      'AI production and prompt engineering',
+      'Editing and post-production',
+    ],
   },
   {
+    id: 'maryam-sheikh',
+    badgeNumber: 'OPERATIVE // 02',
     name: 'Maryam Sheikh',
     rollNo: '26F-CS-119',
-    role: 'Visual Continuity & Diffusion Specialist',
-    specialization: 'Scene Generation (Google Flow), Character Consistency & Storyboarding',
-    clearance: 'LEVEL-04 // VISUAL FORENSICS',
+    role: 'Scriptwriter & Creative Director',
+    specialization: 'Narrative screenplay development, creative direction, AI visual generation & prompt refinement.',
+    clearance: 'LEVEL-04 // CREATIVE DIRECTOR',
+    departmentUnit: 'NARRATIVE & CREATIVE DIRECTION UNIT',
+    contributions: [
+      'Scriptwriting and story development',
+      'AI image and video generation',
+      'Prompt writing and refinement',
+      'Creative direction',
+    ],
   },
   {
-    name: 'Soha Majid',
-    rollNo: '26F-CS-126',
-    role: 'Screenplay & Art Direction',
-    specialization: 'Script Development, Dossier Curation & Spatial Scene Alignment',
-    clearance: 'LEVEL-04 // NARRATIVE ANALYST',
-  },
-  {
-    name: 'Umer Kamran',
-    rollNo: '26F-CS-150',
-    role: 'AI Video Pipeline & Post-Production',
-    specialization: 'Motion Synthesis, CapCut AI Pacing & Cinematic Color Grading',
-    clearance: 'LEVEL-04 // MOTION ENGINEER',
-  },
-  {
-    name: 'Muhammad Abu Bakar',
-    rollNo: '26F-CS-151',
-    role: 'Audio, Vocal Engineering & Sound Design',
-    specialization: 'Google AI Studio Voice Synthesis, Adobe Mastering & Noir Scoring',
-    clearance: 'LEVEL-04 // ACOUSTIC ENGINEER',
-  },
-  {
+    id: 'saad-ahmed',
+    badgeNumber: 'OPERATIVE // 03',
     name: 'Saad Ahmed',
     rollNo: '26F-CS-147',
-    role: 'Systems Architecture & Technical Showcase',
-    specialization: 'Interactive Dossier Portal, Prompt Pipeline & Technical Documentation',
-    clearance: 'LEVEL-04 // SYSTEMS ARCHITECT',
+    role: 'Visual & Web Development',
+    specialization: 'Story input, keyframe still generation, start/end frame anchoring & dossier web architecture.',
+    clearance: 'LEVEL-04 // VISUAL & WEB ARCHITECT',
+    departmentUnit: 'KEYFRAME ANCHORING & WEB SYSTEMS UNIT',
+    contributions: [
+      'Creative story input',
+      'Visual still generation',
+      'Start and end frame anchoring',
+      'Project website design and development',
+    ],
+  },
+  {
+    id: 'muhammad-abu-bakar',
+    badgeNumber: 'OPERATIVE // 04',
+    name: 'Muhammad Abu Bakar',
+    rollNo: '26F-CS-151',
+    role: 'AI Visual Production',
+    specialization: 'AI scene/image synthesis, character sheet consistency design & prompt engineering.',
+    clearance: 'LEVEL-04 // AI VISUAL SPECIALIST',
+    departmentUnit: 'DIFFUSION & CHARACTER SYNTHESIS UNIT',
+    contributions: [
+      'AI image and video generation',
+      'Character sheet design',
+      'Prompt writing and refinement',
+    ],
+  },
+  {
+    id: 'umer-kamran',
+    badgeNumber: 'OPERATIVE // 05',
+    name: 'Umer Kamran',
+    rollNo: '26F-CS-150',
+    role: 'Audio & Character Design',
+    specialization: 'Character sheets, narration/VO, sound effects design, audio sync & OST video production.',
+    clearance: 'LEVEL-04 // AUDIO & CHARACTER LEAD',
+    departmentUnit: 'ACOUSTIC SYNC & CHARACTER DESIGN UNIT',
+    contributions: [
+      'Character sheet design',
+      'Voice-over and narration',
+      'Sound effects and sound design',
+      'Audio synchronization',
+      'OST video production',
+    ],
+  },
+  {
+    id: 'soha-majid',
+    badgeNumber: 'OPERATIVE // 06',
+    name: 'Soha Majid',
+    rollNo: '26F-CS-126',
+    role: 'Music & Audio Production',
+    specialization: 'Original Soundtrack (OST), OST video production, voice-over recordings, character sketches & SFX.',
+    clearance: 'LEVEL-04 // OST & AUDIO PRODUCER',
+    departmentUnit: 'ORIGINAL SOUNDTRACK & FOLEY UNIT',
+    contributions: [
+      'Original Soundtrack (OST)',
+      'OST video production',
+      'Voice-over recordings',
+      'Character sketches',
+      'Sound effects',
+    ],
   },
 ];

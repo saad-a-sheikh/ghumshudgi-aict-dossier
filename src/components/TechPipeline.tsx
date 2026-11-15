@@ -2,7 +2,6 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Cpu, Film, Sparkles, Compass, AudioWaveform, CheckCircle2, Layers } from 'lucide-react';
 import { TECH_PIPELINE } from '../data/dossierData';
-import { DecodeText } from './DecodeText';
 
 export const TechPipeline: React.FC = () => {
   const getPipelineIcon = (id: string) => {
@@ -33,7 +32,7 @@ export const TechPipeline: React.FC = () => {
               <span className="text-[#9CA3AF]">AICT OPEN ENDED LAB-1</span>
             </div>
             <h2 className="font-display text-3xl sm:text-5xl font-bold text-[#E3E1D9] tracking-tight">
-              <DecodeText text="AI GENERATIVE ENGINEERING PIPELINE" />
+              AI GENERATIVE ENGINEERING PIPELINE
             </h2>
           </div>
 
@@ -71,7 +70,7 @@ export const TechPipeline: React.FC = () => {
 
                 {/* Title & Category */}
                 <h3 className="font-display text-2xl font-bold text-[#E3E1D9] group-hover:text-white mb-1">
-                  <DecodeText text={module.title} />
+                  {module.title}
                 </h3>
                 <p className="font-mono text-xs text-[#9CA3AF] mb-4">{module.category}</p>
 

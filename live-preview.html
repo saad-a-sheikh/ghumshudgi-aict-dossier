@@ -471,47 +471,109 @@
 
       const TEAM_ROSTER = [
         {
+          id: 'aiman-alkasiri',
+          badgeNumber: 'OPERATIVE // 01',
           name: 'Aiman Alkasiri',
           rollNo: '26F-CS-158',
-          role: 'Team Lead • Narrative & AI Direction',
+          role: 'Team Lead & Production Supervisor',
           isLead: true,
-          specialization: 'Executive Direction, Gemini Prompt Architecture & Final Assembly',
-          clearance: 'LEVEL-05 // LEAD INVESTIGATOR',
+          specialization:
+            'Team supervision, AI video direction, storyboarding, prompt engineering & post-production.',
+          clearance: 'LEVEL-05 // LEAD SUPERVISOR',
+          departmentUnit: 'DIRECTION & EXECUTIVE PRODUCTION UNIT',
+          contributions: [
+            'Team Lead & production supervision',
+            'Video generation and direction',
+            'Storyboarding and scene planning',
+            'AI production and prompt engineering',
+            'Editing and post-production',
+          ],
         },
         {
+          id: 'maryam-sheikh',
+          badgeNumber: 'OPERATIVE // 02',
           name: 'Maryam Sheikh',
           rollNo: '26F-CS-119',
-          role: 'Visual Continuity & Diffusion Specialist',
-          specialization: 'Scene Generation (Google Flow), Character Consistency & Storyboarding',
-          clearance: 'LEVEL-04 // VISUAL FORENSICS',
+          role: 'Scriptwriter & Creative Director',
+          specialization:
+            'Narrative screenplay development, creative direction, AI visual generation & prompt refinement.',
+          clearance: 'LEVEL-04 // CREATIVE DIRECTOR',
+          departmentUnit: 'NARRATIVE & CREATIVE DIRECTION UNIT',
+          contributions: [
+            'Scriptwriting and story development',
+            'AI image and video generation',
+            'Prompt writing and refinement',
+            'Creative direction',
+          ],
         },
         {
-          name: 'Soha Majid',
-          rollNo: '26F-CS-126',
-          role: 'Screenplay & Art Direction',
-          specialization: 'Script Development, Dossier Curation & Spatial Scene Alignment',
-          clearance: 'LEVEL-04 // NARRATIVE ANALYST',
-        },
-        {
-          name: 'Umer Kamran',
-          rollNo: '26F-CS-150',
-          role: 'AI Video Pipeline & Post-Production',
-          specialization: 'Motion Synthesis, CapCut AI Pacing & Cinematic Color Grading',
-          clearance: 'LEVEL-04 // MOTION ENGINEER',
-        },
-        {
-          name: 'Muhammad Abu Bakar',
-          rollNo: '26F-CS-151',
-          role: 'Audio, Vocal Engineering & Sound Design',
-          specialization: 'Google AI Studio Voice Synthesis, Adobe Mastering & Noir Scoring',
-          clearance: 'LEVEL-04 // ACOUSTIC ENGINEER',
-        },
-        {
+          id: 'saad-ahmed',
+          badgeNumber: 'OPERATIVE // 03',
           name: 'Saad Ahmed',
           rollNo: '26F-CS-147',
-          role: 'Systems Architecture & Technical Showcase',
-          specialization: 'Interactive Dossier Portal, Prompt Pipeline & Technical Documentation',
-          clearance: 'LEVEL-04 // SYSTEMS ARCHITECT',
+          role: 'Visual & Web Development',
+          specialization:
+            'Story input, keyframe still generation, start/end frame anchoring & dossier web architecture.',
+          clearance: 'LEVEL-04 // VISUAL & WEB ARCHITECT',
+          departmentUnit: 'KEYFRAME ANCHORING & WEB SYSTEMS UNIT',
+          contributions: [
+            'Creative story input',
+            'Visual still generation',
+            'Start and end frame anchoring',
+            'Project website design and development',
+          ],
+        },
+        {
+          id: 'muhammad-abu-bakar',
+          badgeNumber: 'OPERATIVE // 04',
+          name: 'Muhammad Abu Bakar',
+          rollNo: '26F-CS-151',
+          role: 'AI Visual Production',
+          specialization:
+            'AI scene/image synthesis, character sheet consistency design & prompt engineering.',
+          clearance: 'LEVEL-04 // AI VISUAL SPECIALIST',
+          departmentUnit: 'DIFFUSION & CHARACTER SYNTHESIS UNIT',
+          contributions: [
+            'AI image and video generation',
+            'Character sheet design',
+            'Prompt writing and refinement',
+          ],
+        },
+        {
+          id: 'umer-kamran',
+          badgeNumber: 'OPERATIVE // 05',
+          name: 'Umer Kamran',
+          rollNo: '26F-CS-150',
+          role: 'Audio & Character Design',
+          specialization:
+            'Character sheets, narration/VO, sound effects design, audio sync & OST video production.',
+          clearance: 'LEVEL-04 // AUDIO & CHARACTER LEAD',
+          departmentUnit: 'ACOUSTIC SYNC & CHARACTER DESIGN UNIT',
+          contributions: [
+            'Character sheet design',
+            'Voice-over and narration',
+            'Sound effects and sound design',
+            'Audio synchronization',
+            'OST video production',
+          ],
+        },
+        {
+          id: 'soha-majid',
+          badgeNumber: 'OPERATIVE // 06',
+          name: 'Soha Majid',
+          rollNo: '26F-CS-126',
+          role: 'Music & Audio Production',
+          specialization:
+            'Original Soundtrack (OST), OST video production, voice-over recordings, character sketches & SFX.',
+          clearance: 'LEVEL-04 // OST & AUDIO PRODUCER',
+          departmentUnit: 'ORIGINAL SOUNDTRACK & FOLEY UNIT',
+          contributions: [
+            'Original Soundtrack (OST)',
+            'OST video production',
+            'Voice-over recordings',
+            'Character sketches',
+            'Sound effects',
+          ],
         },
       ];
 
@@ -525,6 +587,7 @@
 
       function App() {
         const [isFilmModalOpen, setIsFilmModalOpen] = useState(false);
+        const [selectedMember, setSelectedMember] = useState(null);
         const [selectedDoc, setSelectedDoc] = useState(EVIDENCE_DOCUMENTS[0]);
         const [activeProfile, setActiveProfile] = useState(CHARACTER_PROFILES[0]);
         const [selectedAct, setSelectedAct] = useState('ALL SCENES');
@@ -538,7 +601,10 @@
 
         useEffect(() => {
           const onKey = (e) => {
-            if (e.key === 'Escape') setIsFilmModalOpen(false);
+            if (e.key === 'Escape') {
+              setIsFilmModalOpen(false);
+              setSelectedMember(null);
+            }
           };
           window.addEventListener('keydown', onKey);
           return () => window.removeEventListener('keydown', onKey);
@@ -576,7 +642,7 @@
                       href={item.href}
                       className="px-3 py-1.5 font-mono text-xs tracking-wider rounded border border-transparent text-[#9CA3AF] hover:text-[#E3E1D9] hover:border-red-600/60 hover:bg-[#121316] transition-all"
                     >
-                      <DecodeText text={item.label} />
+                      {item.label}
                     </a>
                   ))}
                 </nav>
@@ -623,7 +689,7 @@
                   <div className="lg:col-span-7 space-y-6">
                     <div className="flex flex-wrap items-baseline gap-x-5 gap-y-2">
                       <h1 className="font-display text-5xl sm:text-7xl xl:text-8xl font-black tracking-tight text-[#E3E1D9]">
-                        <DecodeText text="GHUMSHUDGI" speed={35} />
+                        <DecodeText text="GHUMSHUDGI" trigger={true} speed={35} />
                       </h1>
                       <span dir="rtl" lang="ur" className="font-urdu text-4xl sm:text-6xl text-[#C2272D] font-bold">
                         (گمشدگی)
@@ -690,7 +756,7 @@
                     [01. DOSSIER // FORENSIC CASE FILE &amp; SYNOPSIS]
                   </div>
                   <h2 className="font-display text-3xl sm:text-5xl font-bold text-[#E3E1D9]">
-                    <DecodeText text="THE ANATOMY OF A FRAME-UP" />
+                    THE ANATOMY OF A FRAME-UP
                   </h2>
                 </div>
 
@@ -733,7 +799,7 @@
                               STAMPED DOCUMENT 0{idx + 1} • {doc.exhibitCode}
                             </div>
                             <h3 className="font-display text-lg font-bold text-[#E3E1D9]">
-                              <DecodeText text={doc.title} />
+                              {doc.title}
                             </h3>
                           </div>
                           <span className="forensic-stamp px-2 py-0.5 font-mono text-[10px] font-bold">
@@ -756,7 +822,7 @@
                     [02. CHARACTERS // SUBJECT DOSSIERS]
                   </div>
                   <h2 className="font-display text-3xl sm:text-5xl font-bold text-[#E3E1D9]">
-                    <DecodeText text="PERSONS OF INTEREST" />
+                    PERSONS OF INTEREST
                   </h2>
                 </div>
 
@@ -774,7 +840,7 @@
                       <div className="flex items-baseline justify-between mb-2">
                         <div>
                           <h3 className="font-display text-2xl font-bold text-[#E3E1D9]">
-                            <DecodeText text={char.name} />
+                            {char.name}
                           </h3>
                           <p className="font-mono text-xs text-[#C2272D]">{char.role}</p>
                         </div>
@@ -806,7 +872,7 @@
                       [03. SCENES // STORYBOARD PROGRESSION ACROSS 23 SCENES]
                     </div>
                     <h2 className="font-display text-3xl sm:text-5xl font-bold text-[#E3E1D9]">
-                      <DecodeText text="CHRONOLOGY OF ENTRAPMENT" />
+                      CHRONOLOGY OF ENTRAPMENT
                     </h2>
                   </div>
                   <div className="flex flex-wrap gap-1.5 bg-[#121316] p-1.5 rounded border border-[#2A2B30]">
@@ -836,7 +902,7 @@
                         <span className="text-[#9CA3AF]">{scene.act} • {scene.timecode}</span>
                       </div>
                       <h3 className="font-display text-xl font-bold text-[#E3E1D9] mb-1">
-                        <DecodeText text={scene.title} />
+                        {scene.title}
                       </h3>
                       <div className="font-mono text-[11px] text-[#9CA3AF] mb-3">{scene.location}</div>
                       <p className="text-xs sm:text-sm text-[#E3E1D9]/85 leading-relaxed mb-4">
@@ -857,7 +923,7 @@
                     [04. PIPELINE // AI GENERATIVE ENGINEERING]
                   </div>
                   <h2 className="font-display text-3xl sm:text-5xl font-bold text-[#E3E1D9]">
-                    <DecodeText text="AI GENERATIVE ENGINEERING PIPELINE" />
+                    AI GENERATIVE ENGINEERING PIPELINE
                   </h2>
                 </div>
 
@@ -872,7 +938,7 @@
                         <span className="text-[#C2272D]">{m.metricValue}</span>
                       </div>
                       <h3 className="font-display text-2xl font-bold text-[#E3E1D9] mb-2">
-                        <DecodeText text={m.title} />
+                        {m.title}
                       </h3>
                       <div className="flex flex-wrap gap-2 mb-3">
                         {m.tools.map((t) => (
@@ -899,7 +965,7 @@
                     [05. CREDITS // PRODUCTION TEAM &amp; ACADEMIC SUPERVISION]
                   </div>
                   <h2 className="font-display text-3xl sm:text-5xl font-bold text-[#E3E1D9]">
-                    <DecodeText text="INVESTIGATIVE TASK FORCE" />
+                    INVESTIGATIVE TASK FORCE
                   </h2>
                 </div>
 
@@ -913,37 +979,220 @@
                   </p>
                 </div>
 
+                <div className="mb-5 flex flex-wrap items-center justify-between gap-2 font-mono text-xs">
+                  <span className="text-[#E3E1D9]">
+                    PRODUCTION ROSTER // CLICK ANY MEMBER CARD TO OPEN OPERATIVE PROFILE
+                  </span>
+                  <span className="text-[#C2272D] font-bold">
+                    [ INTERACTIVE PROFILE CARDS ENABLED ]
+                  </span>
+                </div>
+
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                   {TEAM_ROSTER.map((member) => (
                     <div
                       key={member.rollNo}
-                      className={`rounded-lg bg-[#121316] border p-6 transition-all ${
+                      onClick={() => setSelectedMember(member)}
+                      className={`group cursor-pointer rounded-lg bg-[#121316] border p-6 transition-all flex flex-col justify-between ${
                         member.isLead
                           ? 'border-[#C2272D] shadow-crimson'
                           : 'border-[#2A2B30] hover:border-red-600/60'
                       }`}
                     >
-                      <div className="flex justify-between font-mono text-xs border-b border-[#2A2B30] pb-3 mb-4">
-                        <span className="text-[#9CA3AF]">{member.clearance}</span>
-                        <span className="text-[#E3E1D9] font-bold">{member.rollNo}</span>
-                      </div>
-                      <div className="flex items-center justify-between mb-1">
-                        <h3 className="font-display text-xl font-bold text-[#E3E1D9]">
-                          <DecodeText text={member.name} />
-                        </h3>
-                        {member.isLead && (
-                          <span className="px-2 py-0.5 rounded bg-[#C2272D] text-white font-mono text-[10px] font-bold">
-                            TEAM LEAD
+                      <div>
+                        <div className="flex justify-between font-mono text-xs border-b border-[#2A2B30] pb-3 mb-4">
+                          <span className="text-[#9CA3AF]">{member.badgeNumber}</span>
+                          <span className="px-2 py-0.5 rounded bg-[#0A0A0C] border border-[#2A2B30] text-[#E3E1D9] font-bold">
+                            {member.rollNo}
                           </span>
-                        )}
+                        </div>
+                        <div className="flex items-center justify-between gap-2 mb-1">
+                          <h3 className="font-display text-xl font-bold text-[#E3E1D9] group-hover:text-white">
+                            {member.name}
+                          </h3>
+                          {member.isLead && (
+                            <span className="px-2 py-0.5 rounded bg-[#C2272D] text-white font-mono text-[10px] font-bold shrink-0">
+                              TEAM LEAD
+                            </span>
+                          )}
+                        </div>
+                        <p className="font-mono text-xs text-[#C2272D] font-semibold mb-3">
+                          {member.role}
+                        </p>
+                        <p className="text-xs text-[#9CA3AF] mb-4 leading-relaxed">
+                          {member.specialization}
+                        </p>
+
+                        <div className="space-y-1.5 bg-[#0A0A0C]/80 p-3 rounded border border-[#2A2B30] group-hover:border-[#C2272D]/40 transition-colors">
+                          <div className="font-mono text-[10px] text-[#9CA3AF] flex items-center justify-between">
+                            <span>KEY ROLES ({member.contributions.length} LOGGED)</span>
+                            <span className="text-[#C2272D]">CLICK TO EXPAND</span>
+                          </div>
+                          {member.contributions.slice(0, 2).map((item, i) => (
+                            <div
+                              key={i}
+                              className="flex items-center gap-1.5 font-mono text-[11px] text-[#E3E1D9]/90 truncate"
+                            >
+                              <span className="w-1.5 h-1.5 rounded-full bg-[#C2272D] shrink-0" />
+                              <span className="truncate">{item}</span>
+                            </div>
+                          ))}
+                          {member.contributions.length > 2 && (
+                            <div className="font-mono text-[10px] text-[#9CA3AF] pl-3">
+                              + {member.contributions.length - 2} more operational roles...
+                            </div>
+                          )}
+                        </div>
                       </div>
-                      <p className="font-mono text-xs text-[#C2272D] mb-2">{member.role}</p>
-                      <p className="text-xs text-[#9CA3AF]">{member.specialization}</p>
+
+                      <div className="mt-5 pt-3 border-t border-[#2A2B30] flex items-center justify-between font-mono text-[11px]">
+                        <span className="text-[#9CA3AF]">ID: {member.rollNo}</span>
+                        <span className="text-[#C2272D] font-bold group-hover:translate-x-0.5 transition-transform">
+                          [ OPEN PROFILE → ]
+                        </span>
+                      </div>
                     </div>
                   ))}
                 </div>
               </div>
             </section>
+
+            {/* MEMBER PROFILE POPUP MODAL */}
+            {selectedMember && (
+              <div
+                onClick={() => setSelectedMember(null)}
+                className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-4 overflow-y-auto"
+              >
+                <div
+                  onClick={(e) => e.stopPropagation()}
+                  className="w-full max-w-2xl rounded-lg bg-[#121316] border border-[#C2272D] shadow-dossier overflow-hidden my-auto"
+                >
+                  <div className="flex items-center justify-between gap-3 px-6 py-4 bg-[#0A0A0C] border-b border-[#2A2B30]">
+                    <div>
+                      <div className="font-mono text-xs font-bold text-[#E3E1D9] tracking-wider">
+                        PERSONNEL DOSSIER // {selectedMember.badgeNumber}
+                      </div>
+                      <div className="font-mono text-[10px] text-[#9CA3AF]">
+                        {selectedMember.clearance} • DUET BSCS SECTION A3
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => {
+                          const i = TEAM_ROSTER.findIndex((m) => m.id === selectedMember.id);
+                          setSelectedMember(
+                            TEAM_ROSTER[(i - 1 + TEAM_ROSTER.length) % TEAM_ROSTER.length]
+                          );
+                        }}
+                        className="px-2.5 py-1 rounded bg-[#121316] border border-[#2A2B30] hover:border-red-600/60 font-mono text-xs text-[#E3E1D9]"
+                      >
+                        ←
+                      </button>
+                      <button
+                        onClick={() => {
+                          const i = TEAM_ROSTER.findIndex((m) => m.id === selectedMember.id);
+                          setSelectedMember(TEAM_ROSTER[(i + 1) % TEAM_ROSTER.length]);
+                        }}
+                        className="px-2.5 py-1 rounded bg-[#121316] border border-[#2A2B30] hover:border-red-600/60 font-mono text-xs text-[#E3E1D9]"
+                      >
+                        →
+                      </button>
+                      <button
+                        onClick={() => setSelectedMember(null)}
+                        className="px-3 py-1 rounded bg-[#C2272D] text-white font-mono text-xs font-bold"
+                      >
+                        [ESC / CLOSE]
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="p-6 sm:p-8 space-y-6">
+                    <div className="flex flex-wrap items-start justify-between gap-4 pb-5 border-b border-[#2A2B30]">
+                      <div className="space-y-1.5">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span className="font-mono text-[11px] px-2.5 py-0.5 rounded bg-[#0A0A0C] border border-[#2A2B30] text-[#E3E1D9] font-bold">
+                            ROLL NO: {selectedMember.rollNo}
+                          </span>
+                          {selectedMember.isLead && (
+                            <span className="px-2.5 py-0.5 rounded bg-[#C2272D] text-white font-mono text-[10px] font-bold tracking-wider">
+                              TEAM LEAD &amp; PRODUCTION SUPERVISOR
+                            </span>
+                          )}
+                        </div>
+                        <h3 className="font-display text-3xl sm:text-4xl font-bold text-[#E3E1D9] pt-1">
+                          {selectedMember.name}
+                        </h3>
+                        <p className="font-mono text-sm text-[#C2272D] font-bold">
+                          {selectedMember.role}
+                        </p>
+                      </div>
+                      <span className="forensic-stamp px-3 py-1 font-mono text-xs font-bold -rotate-2">
+                        VERIFIED CREDIT
+                      </span>
+                    </div>
+
+                    <div className="p-4 rounded bg-[#0A0A0C] border border-[#2A2B30] space-y-1">
+                      <div className="font-mono text-[10px] text-[#9CA3AF] uppercase tracking-widest">
+                        ASSIGNED UNIT // {selectedMember.departmentUnit}
+                      </div>
+                      <p className="text-xs sm:text-sm text-[#E3E1D9]/90">
+                        {selectedMember.specialization}
+                      </p>
+                    </div>
+
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between font-mono text-xs text-[#E3E1D9]">
+                        <span className="font-bold tracking-wider">
+                          OPERATIONAL CONTRIBUTIONS &amp; PRODUCTION CREDITS
+                        </span>
+                        <span className="text-[#9CA3AF] text-[11px]">
+                          {selectedMember.contributions.length} VERIFIED TASKS
+                        </span>
+                      </div>
+                      <div className="grid grid-cols-1 gap-2.5">
+                        {selectedMember.contributions.map((contribution, idx) => (
+                          <div
+                            key={contribution}
+                            className="flex items-center justify-between gap-3 p-3.5 rounded bg-[#0A0A0C] border border-[#2A2B30] hover:border-[#C2272D]/60 transition-colors"
+                          >
+                            <div className="flex items-center gap-3">
+                              <span className="px-2 py-0.5 rounded bg-[#C2272D]/15 border border-[#C2272D]/40 font-mono text-[11px] font-bold text-[#C2272D]">
+                                0{idx + 1}
+                              </span>
+                              <span className="text-sm sm:text-base text-[#E3E1D9] font-medium">
+                                {contribution}
+                              </span>
+                            </div>
+                            <span className="text-[#C2272D] font-mono text-xs font-bold">✓</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="pt-4 border-t border-[#2A2B30] space-y-2">
+                      <div className="font-mono text-[10px] text-[#9CA3AF] uppercase">
+                        QUICK SWITCH INVESTIGATOR PROFILE:
+                      </div>
+                      <div className="flex flex-wrap gap-1.5">
+                        {TEAM_ROSTER.map((m) => (
+                          <button
+                            key={m.id}
+                            onClick={() => setSelectedMember(m)}
+                            className={`px-2.5 py-1 rounded font-mono text-[11px] border transition-all ${
+                              m.id === selectedMember.id
+                                ? 'bg-[#C2272D] text-white border-[#C2272D] font-bold'
+                                : 'bg-[#0A0A0C] text-[#9CA3AF] border-[#2A2B30] hover:text-[#E3E1D9] hover:border-red-600/60'
+                            }`}
+                          >
+                            {m.name.split(' ')[0]}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* VIDEO MODAL */}
             {isFilmModalOpen && (

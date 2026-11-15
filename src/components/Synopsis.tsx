@@ -12,7 +12,6 @@ import {
   Clock,
 } from 'lucide-react';
 import { EVIDENCE_DOCUMENTS, EvidenceDocument } from '../data/dossierData';
-import { DecodeText } from './DecodeText';
 
 export const Synopsis: React.FC = () => {
   const [selectedDoc, setSelectedDoc] = useState<EvidenceDocument>(EVIDENCE_DOCUMENTS[0]);
@@ -43,7 +42,7 @@ export const Synopsis: React.FC = () => {
               <span className="text-[#9CA3AF]">CLASSIFICATION: UNAUTHORIZED LEAK</span>
             </div>
             <h2 className="font-display text-3xl sm:text-5xl font-bold text-[#E3E1D9] tracking-tight">
-              <DecodeText text="THE ANATOMY OF A FRAME-UP" />
+              THE ANATOMY OF A FRAME-UP
             </h2>
           </div>
           <div className="font-mono text-xs text-[#9CA3AF] flex items-center gap-2 bg-[#121316] px-3.5 py-2 rounded border border-[#2A2B30]">
@@ -175,7 +174,7 @@ export const Synopsis: React.FC = () => {
                             STAMPED DOCUMENT 0{idx + 1} • {doc.exhibitCode}
                           </div>
                           <h3 className="font-display text-base sm:text-lg font-bold text-[#E3E1D9] group-hover:text-white">
-                            <DecodeText text={doc.title} />
+                            {doc.title}
                           </h3>
                         </div>
                       </div>

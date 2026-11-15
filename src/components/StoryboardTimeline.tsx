@@ -11,7 +11,6 @@ import {
   AlertTriangle,
 } from 'lucide-react';
 import { STORYBOARD_SCENES, StoryboardScene } from '../data/dossierData';
-import { DecodeText } from './DecodeText';
 
 const ACT_FILTERS = ['ALL SCENES', 'ACT I', 'ACT II', 'ACT III', 'ACT IV'] as const;
 
@@ -49,7 +48,7 @@ export const StoryboardTimeline: React.FC = () => {
               <span className="text-[#9CA3AF]">23-SCENE CONTINUITY TIMELINE</span>
             </div>
             <h2 className="font-display text-3xl sm:text-5xl font-bold text-[#E3E1D9] tracking-tight">
-              <DecodeText text="CHRONOLOGY OF ENTRAPMENT" />
+              CHRONOLOGY OF ENTRAPMENT
             </h2>
           </div>
 
@@ -159,7 +158,7 @@ export const StoryboardTimeline: React.FC = () => {
 
                   {/* Scene Title & Location */}
                   <h3 className="font-display text-xl font-bold text-[#E3E1D9] group-hover:text-white mb-1">
-                    <DecodeText text={scene.title} />
+                    {scene.title}
                   </h3>
 
                   <div className="flex items-center gap-1.5 font-mono text-[11px] text-[#9CA3AF] mb-3">
