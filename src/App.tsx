@@ -45,14 +45,28 @@ export function App() {
       {/* Classified Dossier Footer */}
       <footer className="relative z-10 bg-[#0A0A0C] border-t border-[#2A2B30] py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-          <div className="space-y-1.5">
-            <div className="flex items-center gap-2 font-mono text-xs sm:text-sm font-bold text-[#E3E1D9]">
-              <FileWarning className="w-4 h-4 text-[#C2272D]" />
-              <span>GHUMSHUDGI (گمشدگی) // OFFICIAL CASE DOSSIER PORTAL</span>
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
+              <img
+                src="./project-logo.jpg"
+                alt="Gumshuda Productions"
+                className="w-11 h-11 rounded bg-black p-0.5 object-contain border border-[#C2272D]/60"
+              />
+              <img
+                src="./duet-logo.jpg"
+                alt="DUET Logo"
+                className="w-11 h-11 rounded bg-white p-1 object-contain border border-[#2A2B30]"
+              />
             </div>
-            <p className="font-mono text-xs text-[#9CA3AF]">
-              Dawood University of Engineering &amp; Technology (DUET) • BSCS Batch 2026 (Section A3) • AICT Open Ended Lab-1
-            </p>
+            <div className="space-y-1">
+              <div className="flex items-center gap-2 font-mono text-xs sm:text-sm font-bold text-[#E3E1D9]">
+                <FileWarning className="w-4 h-4 text-[#C2272D]" />
+                <span>GHUMSHUDGI (گمشدگی) // GUMSHUDA PRODUCTIONS</span>
+              </div>
+              <p className="font-mono text-xs text-[#9CA3AF]">
+                Dawood University of Engineering &amp; Technology (DUET) • BSCS Batch 2026 (Section A3) • AICT Open Ended Lab-1
+              </p>
+            </div>
           </div>
 
           <div className="flex flex-wrap items-center gap-3">

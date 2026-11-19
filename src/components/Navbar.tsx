@@ -35,20 +35,33 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenFilm }) => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
-        {/* Left: Monospaced Branding */}
+        {/* Left: Dual Logo + Monospaced Branding */}
         <a
           href="#top"
           className="group flex items-center gap-3 font-mono text-xs sm:text-sm tracking-wider text-[#E3E1D9] hover:text-white transition-colors"
         >
-          <span className="inline-flex items-center justify-center w-7 h-7 rounded bg-[#121316] border border-[#2A2B30] group-hover:border-[#C2272D] transition-colors">
-            <FileWarning className="w-3.5 h-3.5 text-[#C2272D]" />
-          </span>
+          <div className="flex items-center gap-1.5">
+            <span className="inline-flex items-center justify-center w-9 h-9 rounded bg-[#0A0A0C] border border-[#2A2B30] group-hover:border-[#C2272D] overflow-hidden transition-colors p-0.5">
+              <img
+                src="./project-logo.jpg"
+                alt="Gumshuda Productions Logo"
+                className="w-full h-full object-contain rounded-sm"
+              />
+            </span>
+            <span className="inline-flex items-center justify-center w-9 h-9 rounded bg-white border border-[#2A2B30] group-hover:border-[#C2272D] overflow-hidden transition-colors p-0.5">
+              <img
+                src="./duet-logo.jpg"
+                alt="Dawood University (DUET) Logo"
+                className="w-full h-full object-contain"
+              />
+            </span>
+          </div>
           <div className="flex flex-col">
             <span className="font-bold tracking-widest">
               GHUMSHUDGI <span className="text-[#C2272D]">//</span> AICT-LAB-01
             </span>
             <span className="text-[10px] text-[#9CA3AF] hidden sm:inline">
-              CASE FILE: 26F-CS-A3 • DUET KARACHI
+              GUMSHUDA PRODUCTIONS • DUET KARACHI (26F-CS-A3)
             </span>
           </div>
         </a>

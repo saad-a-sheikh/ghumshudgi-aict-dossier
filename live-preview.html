@@ -629,10 +629,21 @@
             <div className="pointer-events-none fixed inset-0 z-30 noir-grain opacity-60" />
 
             {/* 1. NAVBAR */}
-            <header className="fixed top-0 left-0 right-0 z-40 bg-[#0A0A0C]/90 backdrop-blur-md border-b border-[#2A2B30] py-3.5">
+            <header className="fixed top-0 left-0 right-0 z-40 bg-[#0A0A0C]/90 backdrop-blur-md border-b border-[#2A2B30] py-3">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
-                <a href="#top" className="font-mono text-xs sm:text-sm font-bold tracking-widest text-[#E3E1D9]">
-                  GHUMSHUDGI <span className="text-[#C2272D]">//</span> AICT-LAB-01
+                <a href="#top" className="flex items-center gap-3 font-mono text-xs sm:text-sm font-bold tracking-widest text-[#E3E1D9]">
+                  <div className="flex items-center gap-1.5">
+                    <span className="inline-flex items-center justify-center w-9 h-9 rounded bg-[#0A0A0C] border border-[#2A2B30] overflow-hidden p-0.5">
+                      <img src="./project-logo.jpg" alt="Gumshuda Productions" className="w-full h-full object-contain rounded-sm" />
+                    </span>
+                    <span className="inline-flex items-center justify-center w-9 h-9 rounded bg-white border border-[#2A2B30] overflow-hidden p-0.5">
+                      <img src="./duet-logo.jpg" alt="DUET Logo" className="w-full h-full object-contain" />
+                    </span>
+                  </div>
+                  <div className="flex flex-col">
+                    <span>GHUMSHUDGI <span className="text-[#C2272D]">//</span> AICT-LAB-01</span>
+                    <span className="text-[10px] text-[#9CA3AF] font-normal hidden sm:inline">GUMSHUDA PRODUCTIONS • DUET KARACHI</span>
+                  </div>
                 </a>
 
                 <nav className="hidden lg:flex items-center gap-2">
@@ -678,10 +689,15 @@
                   </span>
                 </div>
 
-                <div className="mb-5">
-                  <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#121316] border border-[#2A2B30] font-mono text-xs sm:text-sm text-[#E3E1D9]">
-                    <span className="w-2 h-2 rounded-full bg-[#C2272D]" />
-                    Dawood University of Engineering &amp; Technology • BSCS Section A3
+                <div className="mb-6">
+                  <span className="inline-flex flex-wrap items-center gap-3 px-4 py-2 rounded-full bg-[#121316] border border-[#2A2B30] font-mono text-xs sm:text-sm text-[#E3E1D9]">
+                    <img src="./duet-logo.jpg" alt="DUET Logo" className="w-7 h-7 rounded-full bg-white p-0.5 object-contain border border-[#2A2B30]" />
+                    <span>Dawood University of Engineering &amp; Technology • BSCS Section A3</span>
+                    <span className="text-[#2A2B30]">|</span>
+                    <span className="inline-flex items-center gap-2 text-xs text-[#9CA3AF]">
+                      <img src="./project-logo.jpg" alt="Gumshuda Productions" className="w-6 h-6 rounded-full object-cover border border-[#C2272D]/60" />
+                      Gumshuda Productions • Supervisor: Sir Imran Alvi
+                    </span>
                   </span>
                 </div>
 
@@ -729,13 +745,21 @@
                         <span className="text-[#9CA3AF]">EVIDENCE REEL // 16:9 SCREENING</span>
                         <span className="forensic-stamp px-2 py-0.5 text-[10px] font-bold">RESTRICTED</span>
                       </div>
-                      <div className="aspect-video rounded bg-[#0A0A0C] border border-[#2A2B30] flex flex-col items-center justify-center p-4 text-center mb-4">
-                        <div className="w-14 h-14 rounded-full bg-[#C2272D] text-white flex items-center justify-center text-xl mb-3 shadow-crimson">
-                          ▶
-                        </div>
-                        <div className="font-display text-lg font-bold text-[#E3E1D9]">GHUMSHUDGI (گمشدگی)</div>
-                        <div className="font-mono text-[11px] text-[#9CA3AF] mt-1">
-                          CLICK TO LAUNCH 16:9 VIDEO MODAL
+                      <div className="relative aspect-video rounded bg-[#0A0A0C] border border-[#2A2B30] flex flex-col items-center justify-center p-4 text-center mb-4 overflow-hidden group">
+                        <img
+                          src="./project-logo.jpg"
+                          alt="Gumshuda Productions Emblem"
+                          className="absolute inset-0 w-full h-full object-contain bg-black opacity-55 group-hover:opacity-75 group-hover:scale-105 transition-all duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0C] via-black/35 to-[#0A0A0C]/80" />
+                        <div className="relative z-10 flex flex-col items-center">
+                          <div className="w-14 h-14 rounded-full bg-[#C2272D] text-white flex items-center justify-center text-xl mb-3 shadow-crimson">
+                            ▶
+                          </div>
+                          <div className="font-display text-lg font-bold text-[#E3E1D9]">GHUMSHUDGI (گمشدگی)</div>
+                          <div className="font-mono text-[11px] text-[#9CA3AF] mt-1">
+                            CLICK TO LAUNCH 16:9 VIDEO MODAL
+                          </div>
                         </div>
                       </div>
                       <div className="font-mono text-xs text-[#9CA3AF] flex justify-between">
@@ -969,14 +993,24 @@
                   </h2>
                 </div>
 
-                <div className="mt-10 rounded-lg bg-[#121316] border border-[#C2272D]/50 p-6 sm:p-8 mb-10">
-                  <div className="font-mono text-xs text-[#C2272D] mb-1">SUPERVISOR</div>
-                  <h3 className="font-display text-2xl sm:text-4xl font-bold text-[#E3E1D9] mb-2">
-                    Sir Imran Alvi
-                  </h3>
-                  <p className="font-mono text-xs sm:text-sm text-[#9CA3AF]">
-                    Course: AICT Open Ended Lab-1 • BSCS Batch 2026 (Section A3) • Dawood University of Engineering &amp; Technology (DUET), Karachi
-                  </p>
+                <div className="mt-10 rounded-lg bg-[#121316] border border-[#C2272D]/50 p-6 sm:p-8 mb-10 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+                  <div className="space-y-2">
+                    <div className="font-mono text-xs text-[#C2272D] font-bold">ACADEMIC SUPERVISION &amp; PRODUCTION</div>
+                    <h3 className="font-display text-2xl sm:text-4xl font-bold text-[#E3E1D9]">
+                      Supervised by <span className="text-[#C2272D]">Sir Imran Alvi</span>
+                    </h3>
+                    <p className="font-mono text-xs sm:text-sm text-[#9CA3AF]">
+                      Produced by <strong className="text-[#E3E1D9]">Gumshuda Productions</strong> • Course: AICT Open Ended Lab-1 • BSCS Batch 2026 (Section A3) • Dawood University of Engineering &amp; Technology (DUET), Karachi
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-3 shrink-0">
+                    <div className="w-16 h-16 rounded-lg bg-white p-1.5 border border-[#2A2B30] flex items-center justify-center">
+                      <img src="./duet-logo.jpg" alt="DUET Logo" className="w-full h-full object-contain" />
+                    </div>
+                    <div className="w-16 h-16 rounded-lg bg-black p-1 border border-[#C2272D]/60 shadow-crimson flex items-center justify-center">
+                      <img src="./project-logo.jpg" alt="Gumshuda Productions Logo" className="w-full h-full object-contain" />
+                    </div>
+                  </div>
                 </div>
 
                 <div className="mb-5 flex flex-wrap items-center justify-between gap-2 font-mono text-xs">

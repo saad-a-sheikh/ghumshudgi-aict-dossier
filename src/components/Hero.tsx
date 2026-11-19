@@ -45,22 +45,33 @@ export const Hero: React.FC<HeroProps> = ({ onWatchFilm }) => {
           </span>
         </motion.div>
 
-        {/* Academic Pill */}
+        {/* Academic Pill with University & Project Logos */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.08 }}
-          className="mb-5"
+          className="mb-6"
         >
-          <div className="inline-flex flex-wrap items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#121316]/90 border border-[#2A2B30] hover:border-red-600/60 transition-colors">
-            <span className="w-2 h-2 rounded-full bg-[#C2272D]" />
+          <div className="inline-flex flex-wrap items-center gap-3 px-4 py-2 rounded-full bg-[#121316]/90 border border-[#2A2B30] hover:border-red-600/60 transition-colors">
+            <img
+              src="./duet-logo.jpg"
+              alt="DUET Logo"
+              className="w-7 h-7 rounded-full bg-white p-0.5 object-contain border border-[#2A2B30]"
+            />
             <span className="font-mono text-xs sm:text-sm text-[#E3E1D9] tracking-wide">
               Dawood University of Engineering &amp; Technology • BSCS Section A3
             </span>
             <span className="text-[#2A2B30]">|</span>
-            <span className="font-mono text-xs text-[#9CA3AF]">
-              AICT Open Ended Lab-1 • Supervisor: Sir Imran Alvi
-            </span>
+            <div className="inline-flex items-center gap-2">
+              <img
+                src="./project-logo.jpg"
+                alt="Gumshuda Productions"
+                className="w-6 h-6 rounded-full object-cover border border-[#C2272D]/60"
+              />
+              <span className="font-mono text-xs text-[#9CA3AF]">
+                Gumshuda Productions • Supervisor: Sir Imran Alvi
+              </span>
+            </div>
           </div>
         </motion.div>
 
@@ -162,7 +173,7 @@ export const Hero: React.FC<HeroProps> = ({ onWatchFilm }) => {
                 </span>
               </div>
 
-              {/* 16:9 Interactive Thumbnail Poster Trigger */}
+              {/* 16:9 Interactive Thumbnail Poster Trigger with Official Project Logo */}
               <div
                 onClick={onWatchFilm}
                 role="button"
@@ -170,8 +181,13 @@ export const Hero: React.FC<HeroProps> = ({ onWatchFilm }) => {
                 onKeyDown={(e) => e.key === 'Enter' && onWatchFilm()}
                 className="relative aspect-video w-full rounded overflow-hidden bg-[#0A0A0C] border border-[#2A2B30] group-hover:border-[#C2272D]/70 cursor-pointer mb-5"
               >
-                {/* Noir Procedural Poster Art */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#1b090b] via-[#0A0A0C] to-[#121316]" />
+                {/* Project Logo Background Artwork */}
+                <img
+                  src="./project-logo.jpg"
+                  alt="Gumshuda Productions Official Emblem"
+                  className="absolute inset-0 w-full h-full object-contain bg-black opacity-55 group-hover:opacity-75 group-hover:scale-105 transition-all duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0C] via-black/35 to-[#0A0A0C]/80" />
                 <div className="absolute inset-0 noir-scanlines opacity-50" />
 
                 {/* Architectural Silhouette / Split Motif */}

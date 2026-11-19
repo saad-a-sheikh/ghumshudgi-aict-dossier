@@ -73,7 +73,7 @@ export const TeamSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Academic Supervision & Course Banner */}
+        {/* Academic Supervision & Course Banner with Official Logos */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -82,16 +82,34 @@ export const TeamSection: React.FC = () => {
           className="mt-10 rounded-lg bg-gradient-to-r from-[#121316] via-[#171215] to-[#121316] border border-[#C2272D]/50 p-6 sm:p-8 shadow-dossier"
         >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-            <div className="lg:col-span-7 space-y-2">
-              <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-[#C2272D]/15 border border-[#C2272D]/40 font-mono text-xs text-[#C2272D] font-bold">
-                <Award className="w-3.5 h-3.5" />
-                ACADEMIC SUPERVISION &amp; COURSE EVALUATION
+            <div className="lg:col-span-7 space-y-4">
+              <div className="flex flex-wrap items-center gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-16 h-16 rounded-lg bg-white p-1.5 border border-[#2A2B30] shadow-md shrink-0 flex items-center justify-center">
+                    <img
+                      src="./duet-logo.jpg"
+                      alt="Dawood University of Engineering & Technology Logo"
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                  <div className="w-16 h-16 rounded-lg bg-black p-1 border border-[#C2272D]/60 shadow-crimson shrink-0 flex items-center justify-center">
+                    <img
+                      src="./project-logo.jpg"
+                      alt="Gumshuda Productions Logo"
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                </div>
+                <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-[#C2272D]/15 border border-[#C2272D]/40 font-mono text-xs text-[#C2272D] font-bold">
+                  <Award className="w-3.5 h-3.5" />
+                  ACADEMIC SUPERVISION &amp; COURSE EVALUATION
+                </div>
               </div>
               <h3 className="font-display text-2xl sm:text-4xl font-bold text-[#E3E1D9]">
                 Supervised by <span className="text-[#C2272D]">Sir Imran Alvi</span>
               </h3>
               <p className="text-sm sm:text-base text-[#9CA3AF] leading-relaxed">
-                Submitted in fulfillment of the <strong className="text-[#E3E1D9]">AICT Open Ended Lab-1</strong> curriculum for the <strong className="text-[#E3E1D9]">Department of Computer Science (BSCS Batch 2026 — Section A3)</strong> at <strong className="text-[#E3E1D9]">Dawood University of Engineering &amp; Technology (DUET), Karachi</strong>.
+                Produced by <strong className="text-[#E3E1D9]">Gumshuda Productions</strong> and submitted in fulfillment of the <strong className="text-[#E3E1D9]">AICT Open Ended Lab-1</strong> curriculum for the <strong className="text-[#E3E1D9]">Department of Computer Science (BSCS Batch 2026 — Section A3)</strong> at <strong className="text-[#E3E1D9]">Dawood University of Engineering &amp; Technology (DUET), Karachi</strong>.
               </p>
             </div>
 
