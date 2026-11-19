@@ -22,7 +22,7 @@ interface VideoModalProps {
 
 export const VideoModal: React.FC<VideoModalProps> = ({ isOpen, onClose }) => {
   const [mode, setMode] = useState<'video' | 'reel' | 'url'>('video');
-  const [videoSrc, setVideoSrc] = useState<string>('./DRAMA_TEASER1.mp4');
+  const [videoSrc, setVideoSrc] = useState<string>('');
   const [customUrlInput, setCustomUrlInput] = useState<string>('');
   const [videoLoadError, setVideoLoadError] = useState<boolean>(false);
   const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
@@ -148,17 +148,36 @@ export const VideoModal: React.FC<VideoModalProps> = ({ isOpen, onClose }) => {
             {/* 16:9 Stage Area */}
             <div className="relative aspect-video w-full bg-[#0A0A0C] overflow-hidden">
               {mode === 'video' && !videoLoadError ? (
-                <video
-                  key={videoSrc}
-                  src={videoSrc}
-                  controls
-                  autoPlay
-                  playsInline
-                  onError={() => setVideoLoadError(true)}
-                  className="w-full h-full object-contain bg-black"
-                >
-                  Your browser does not support HTML5 video playback.
-                </video>
+                videoSrc ? (
+                  <video
+                    key={videoSrc}
+                    src={videoSrc}
+                    controls
+                    autoPlay
+                    playsInline
+                    onError={() => setVideoLoadError(true)}
+                    className="w-full h-full object-contain bg-black"
+                  >
+                    Your browser does not support HTML5 video playback.
+                  </video>
+                ) : (
+                  <video
+                    key="default-teaser-stream"
+                    controls
+                    autoPlay
+                    playsInline
+                    className="w-full h-full object-contain bg-black"
+                  >
+                    <source src="/DRAMA_TEASER1.mp4" type="video/mp4" />
+                    <source src="./DRAMA_TEASER1.mp4" type="video/mp4" />
+                    <source src="./public/DRAMA_TEASER1.mp4" type="video/mp4" />
+                    <source
+                      src="https://raw.githubusercontent.com/saad-a-sheikh/ghumshudgi-aict-dossier/main/public/DRAMA_TEASER1.mp4"
+                      type="video/mp4"
+                    />
+                    Your browser does not support HTML5 video playback.
+                  </video>
+                )
               ) : mode === 'video' && videoLoadError ? (
                 /* Graceful Dossier Screening Fallback if /public/ghumshudgi-film.mp4 is not yet placed */
                 <div className="absolute inset-0 flex flex-col justify-between p-6 sm:p-10 bg-gradient-to-b from-[#14090b] via-[#0A0A0C] to-[#0A0A0C]">
@@ -346,7 +365,7 @@ export const VideoModal: React.FC<VideoModalProps> = ({ isOpen, onClose }) => {
                     LOADED STREAM: {uploadedFileName}
                   </span>
                 ) : (
-                  <span>STREAM SOURCE: {videoSrc}</span>
+                  <span>STREAM SOURCE: DRAMA_TEASER1.mp4 (16:9 HD)</span>
                 )}
               </div>
               <div>

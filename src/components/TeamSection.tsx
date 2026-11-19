@@ -16,6 +16,7 @@ import {
   Layers,
 } from 'lucide-react';
 import { TEAM_ROSTER, TeamMember } from '../data/dossierData';
+import { DUET_LOGO_SRC, PROJECT_LOGO_SRC } from '../data/mediaAssets';
 
 export const TeamSection: React.FC = () => {
   const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
@@ -87,14 +88,14 @@ export const TeamSection: React.FC = () => {
                 <div className="flex items-center gap-3">
                   <div className="w-16 h-16 rounded-lg bg-white p-1.5 border border-[#2A2B30] shadow-md shrink-0 flex items-center justify-center">
                     <img
-                      src="./duet-logo.jpg"
+                      src={DUET_LOGO_SRC}
                       alt="Dawood University of Engineering & Technology Logo"
                       className="w-full h-full object-contain"
                     />
                   </div>
                   <div className="w-16 h-16 rounded-lg bg-black p-1 border border-[#C2272D]/60 shadow-crimson shrink-0 flex items-center justify-center">
                     <img
-                      src="./project-logo.jpg"
+                      src={PROJECT_LOGO_SRC}
                       alt="Gumshuda Productions Logo"
                       className="w-full h-full object-contain"
                     />

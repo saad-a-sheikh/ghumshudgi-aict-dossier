@@ -7,6 +7,7 @@ import { TechPipeline } from './components/TechPipeline';
 import { TeamSection } from './components/TeamSection';
 import { VideoModal } from './components/VideoModal';
 import { FileWarning, Play, ArrowUpRight } from 'lucide-react';
+import { DUET_LOGO_SRC, PROJECT_LOGO_SRC } from './data/mediaAssets';
 
 export function App() {
   const [isFilmModalOpen, setIsFilmModalOpen] = useState(false);
@@ -44,12 +45,12 @@ export function App() {
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
               <img
-                src="./project-logo.jpg"
+                src={PROJECT_LOGO_SRC}
                 alt="Gumshuda Productions"
                 className="w-11 h-11 rounded bg-black p-0.5 object-contain border border-[#C2272D]/60"
               />
               <img
-                src="./duet-logo.jpg"
+                src={DUET_LOGO_SRC}
                 alt="DUET Logo"
                 className="w-11 h-11 rounded bg-white p-1 object-contain border border-[#2A2B30]"
               />

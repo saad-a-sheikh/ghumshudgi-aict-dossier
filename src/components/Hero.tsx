@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Play, FileSearch, Lock, Radio, AlertTriangle, MapPin, Film } from 'lucide-react';
 import { DecodeText } from './DecodeText';
+import { DUET_LOGO_SRC, PROJECT_LOGO_SRC } from '../data/mediaAssets';
 
 interface HeroProps {
   onWatchFilm: () => void;
@@ -54,7 +55,7 @@ export const Hero: React.FC<HeroProps> = ({ onWatchFilm }) => {
         >
           <div className="inline-flex flex-wrap items-center gap-3 px-4 py-2 rounded-full bg-[#121316]/90 border border-[#2A2B30] hover:border-red-600/60 transition-colors">
             <img
-              src="./duet-logo.jpg"
+              src={DUET_LOGO_SRC}
               alt="DUET Logo"
               className="w-7 h-7 rounded-full bg-white p-0.5 object-contain border border-[#2A2B30]"
             />
@@ -64,7 +65,7 @@ export const Hero: React.FC<HeroProps> = ({ onWatchFilm }) => {
             <span className="text-[#2A2B30]">|</span>
             <div className="inline-flex items-center gap-2">
               <img
-                src="./project-logo.jpg"
+                src={PROJECT_LOGO_SRC}
                 alt="Gumshuda Productions"
                 className="w-6 h-6 rounded-full object-cover border border-[#C2272D]/60"
               />
@@ -183,7 +184,7 @@ export const Hero: React.FC<HeroProps> = ({ onWatchFilm }) => {
               >
                 {/* Project Logo Background Artwork */}
                 <img
-                  src="./project-logo.jpg"
+                  src={PROJECT_LOGO_SRC}
                   alt="Gumshuda Productions Official Emblem"
                   className="absolute inset-0 w-full h-full object-contain bg-black opacity-55 group-hover:opacity-75 group-hover:scale-105 transition-all duration-500"
                 />

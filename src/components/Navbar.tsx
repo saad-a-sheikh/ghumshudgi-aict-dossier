@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { ShieldAlert, Menu, X, Play, FileWarning } from 'lucide-react';
+import { ShieldAlert, Menu, X, Play } from 'lucide-react';
+import { DUET_LOGO_SRC, PROJECT_LOGO_SRC } from '../data/mediaAssets';
 
 interface NavbarProps {
   onOpenFilm: () => void;
@@ -42,14 +43,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenFilm }) => {
           <div className="flex items-center gap-1.5">
             <span className="inline-flex items-center justify-center w-9 h-9 rounded bg-[#0A0A0C] border border-[#2A2B30] group-hover:border-[#C2272D] overflow-hidden transition-colors p-0.5">
               <img
-                src="./project-logo.jpg"
+                src={PROJECT_LOGO_SRC}
                 alt="Gumshuda Productions Logo"
                 className="w-full h-full object-contain rounded-sm"
               />
             </span>
             <span className="inline-flex items-center justify-center w-9 h-9 rounded bg-white border border-[#2A2B30] group-hover:border-[#C2272D] overflow-hidden transition-colors p-0.5">
               <img
-                src="./duet-logo.jpg"
+                src={DUET_LOGO_SRC}
                 alt="Dawood University (DUET) Logo"
                 className="w-full h-full object-contain"
               />
