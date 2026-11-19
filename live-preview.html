@@ -591,8 +591,8 @@
         const [activeProfile, setActiveProfile] = useState(CHARACTER_PROFILES[0]);
         const [selectedAct, setSelectedAct] = useState('ALL SCENES');
         const [activeScene, setActiveScene] = useState(STORYBOARD_SCENES[0]);
-        const [modalMode, setModalMode] = useState('reel');
-        const [videoSrc, setVideoSrc] = useState('');
+        const [modalMode, setModalMode] = useState('video');
+        const [videoSrc, setVideoSrc] = useState('./public/DRAMA_TEASER1.mp4');
         const [uploadedName, setUploadedName] = useState('');
         const [reelSlide, setReelSlide] = useState(0);
         const scrollRef = useRef(null);
@@ -1209,9 +1209,9 @@
                       </button>
                     </div>
                   </div>
-                  <div className="aspect-video bg-[#0A0A0C] flex flex-col justify-between p-6">
+                  <div className="aspect-video bg-[#0A0A0C] flex flex-col justify-between">
                     {modalMode === 'video' && videoSrc ? (
-                      <video src={videoSrc} controls autoPlay className="w-full h-full object-contain" />
+                      <video src={videoSrc} controls autoPlay playsInline className="w-full h-full object-contain bg-black" />
                     ) : (
                       <>
                         <div className="flex justify-between font-mono text-xs text-[#9CA3AF]">

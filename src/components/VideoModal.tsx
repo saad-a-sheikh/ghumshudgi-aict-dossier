@@ -22,7 +22,7 @@ interface VideoModalProps {
 
 export const VideoModal: React.FC<VideoModalProps> = ({ isOpen, onClose }) => {
   const [mode, setMode] = useState<'video' | 'reel' | 'url'>('video');
-  const [videoSrc, setVideoSrc] = useState<string>('/ghumshudgi-film.mp4');
+  const [videoSrc, setVideoSrc] = useState<string>('./DRAMA_TEASER1.mp4');
   const [customUrlInput, setCustomUrlInput] = useState<string>('');
   const [videoLoadError, setVideoLoadError] = useState<boolean>(false);
   const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
