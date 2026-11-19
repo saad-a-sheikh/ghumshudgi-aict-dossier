@@ -58,7 +58,7 @@ export const TeamSection: React.FC = () => {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-10 border-b border-[#2A2B30]">
           <div className="space-y-2">
             <div className="inline-flex items-center gap-2 font-mono text-xs text-[#C2272D] tracking-widest">
-              <span>[05. CREDITS // PRODUCTION TEAM &amp; ACADEMIC SUPERVISION]</span>
+              <span>[04. CREDITS // PRODUCTION TEAM &amp; ACADEMIC SUPERVISION]</span>
               <span className="text-[#2A2B30]">•</span>
               <span className="text-[#9CA3AF]">DUET KARACHI</span>
             </div>

@@ -3,7 +3,6 @@ import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Synopsis } from './components/Synopsis';
 import { CharacterGrid } from './components/CharacterGrid';
-import { StoryboardTimeline } from './components/StoryboardTimeline';
 import { TechPipeline } from './components/TechPipeline';
 import { TeamSection } from './components/TeamSection';
 import { VideoModal } from './components/VideoModal';
@@ -32,13 +31,10 @@ export function App() {
         {/* 4. Character Dossier */}
         <CharacterGrid />
 
-        {/* 5. Scene Progression & Storyboard Timeline */}
-        <StoryboardTimeline />
-
-        {/* 6. AI Generative Engineering Pipeline */}
+        {/* 5. AI Generative Engineering Pipeline */}
         <TechPipeline />
 
-        {/* 7. Production Team & Academic Credits */}
+        {/* 6. Production Team & Academic Credits */}
         <TeamSection />
       </main>
 

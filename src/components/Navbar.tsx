@@ -8,9 +8,8 @@ interface NavbarProps {
 const NAV_ITEMS = [
   { label: '[01. DOSSIER]', href: '#dossier' },
   { label: '[02. CHARACTERS]', href: '#characters' },
-  { label: '[03. SCENES]', href: '#scenes' },
-  { label: '[04. PIPELINE]', href: '#pipeline' },
-  { label: '[05. CREDITS]', href: '#credits' },
+  { label: '[03. PIPELINE]', href: '#pipeline' },
+  { label: '[04. CREDITS]', href: '#credits' },
 ];
 
 export const Navbar: React.FC<NavbarProps> = ({ onOpenFilm }) => {

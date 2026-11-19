@@ -580,9 +580,8 @@
       const NAV_ITEMS = [
         { label: '[01. DOSSIER]', href: '#dossier' },
         { label: '[02. CHARACTERS]', href: '#characters' },
-        { label: '[03. SCENES]', href: '#scenes' },
-        { label: '[04. PIPELINE]', href: '#pipeline' },
-        { label: '[05. CREDITS]', href: '#credits' },
+        { label: '[03. PIPELINE]', href: '#pipeline' },
+        { label: '[04. CREDITS]', href: '#credits' },
       ];
 
       function App() {
@@ -887,64 +886,12 @@
               </div>
             </section>
 
-            {/* 5. STORYBOARD TIMELINE */}
-            <section id="scenes" className="py-24 border-b border-[#2A2B30]">
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex flex-wrap items-end justify-between gap-4 pb-8 border-b border-[#2A2B30]">
-                  <div>
-                    <div className="font-mono text-xs text-[#C2272D] tracking-widest mb-2">
-                      [03. SCENES // STORYBOARD PROGRESSION ACROSS 23 SCENES]
-                    </div>
-                    <h2 className="font-display text-3xl sm:text-5xl font-bold text-[#E3E1D9]">
-                      CHRONOLOGY OF ENTRAPMENT
-                    </h2>
-                  </div>
-                  <div className="flex flex-wrap gap-1.5 bg-[#121316] p-1.5 rounded border border-[#2A2B30]">
-                    {['ALL SCENES', 'ACT I', 'ACT II', 'ACT III', 'ACT IV'].map((act) => (
-                      <button
-                        key={act}
-                        onClick={() => setSelectedAct(act)}
-                        className={`px-3 py-1.5 rounded font-mono text-xs ${
-                          selectedAct === act ? 'bg-[#C2272D] text-white font-bold' : 'text-[#9CA3AF]'
-                        }`}
-                      >
-                        {act}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                <div ref={scrollRef} className="mt-10 flex gap-5 overflow-x-auto pb-6">
-                  {filteredScenes.map((scene) => (
-                    <div
-                      key={scene.sceneNumber}
-                      onClick={() => setActiveScene(scene)}
-                      className="shrink-0 w-[330px] rounded-lg bg-[#121316] border border-[#2A2B30] hover:border-red-600/60 p-5 cursor-pointer"
-                    >
-                      <div className="flex justify-between font-mono text-xs mb-3 pb-2 border-b border-[#2A2B30]">
-                        <span className="text-[#C2272D] font-bold">{scene.sceneNumber}</span>
-                        <span className="text-[#9CA3AF]">{scene.act} • {scene.timecode}</span>
-                      </div>
-                      <h3 className="font-display text-xl font-bold text-[#E3E1D9] mb-1">
-                        {scene.title}
-                      </h3>
-                      <div className="font-mono text-[11px] text-[#9CA3AF] mb-3">{scene.location}</div>
-                      <p className="text-xs sm:text-sm text-[#E3E1D9]/85 leading-relaxed mb-4">
-                        {scene.logline}
-                      </p>
-                      <div className="font-mono text-[10px] text-[#C2272D]">{scene.forensicFlag}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </section>
-
-            {/* 6. TECH PIPELINE */}
+            {/* 5. TECH PIPELINE */}
             <section id="pipeline" className="py-24 border-b border-[#2A2B30]">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="pb-10 border-b border-[#2A2B30]">
                   <div className="font-mono text-xs text-[#C2272D] tracking-widest mb-2">
-                    [04. PIPELINE // AI GENERATIVE ENGINEERING]
+                    [03. PIPELINE // AI GENERATIVE ENGINEERING]
                   </div>
                   <h2 className="font-display text-3xl sm:text-5xl font-bold text-[#E3E1D9]">
                     AI GENERATIVE ENGINEERING PIPELINE
@@ -981,12 +928,12 @@
               </div>
             </section>
 
-            {/* 7. PRODUCTION TEAM & CREDITS */}
+            {/* 6. PRODUCTION TEAM & CREDITS */}
             <section id="credits" className="py-24">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="pb-10 border-b border-[#2A2B30]">
                   <div className="font-mono text-xs text-[#C2272D] tracking-widest mb-2">
-                    [05. CREDITS // PRODUCTION TEAM &amp; ACADEMIC SUPERVISION]
+                    [04. CREDITS // PRODUCTION TEAM &amp; ACADEMIC SUPERVISION]
                   </div>
                   <h2 className="font-display text-3xl sm:text-5xl font-bold text-[#E3E1D9]">
                     INVESTIGATIVE TASK FORCE
